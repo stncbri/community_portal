@@ -1,0 +1,16 @@
+{
+  "name": "CommunityPortal",
+  "version": "0.0.0",
+  "author": "Community",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-zipstream": "*",
+    "grunt-contrib-copy": "~0.4.0",
+    "grunt-ant-sfdc": "*"
+  }
+}
