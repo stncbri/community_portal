@@ -6,6 +6,7 @@
     </types>
     <types>
         <members>CommunityPortal</members>
+        <members>angular_config</members>
         <name>ApexPage</name>
     </types>
     <version>29.0</version>
