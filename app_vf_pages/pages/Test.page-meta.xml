@@ -3,5 +3,6 @@
     <apiVersion>35.0</apiVersion>
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
-    <label>angular_config</label>
+    <description>Test Portal</description>
+    <label>Test</label>
 </ApexPage>
