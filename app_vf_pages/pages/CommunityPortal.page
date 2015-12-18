@@ -42,10 +42,12 @@
     <apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_js/app.js')}"/>
 
 <!-- Angular Services -->
+	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_services/cpMainService.js')}"/>
 	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_services/loginService.js')}"/>
 	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_services/questionnaireService.js')}"/>
 	
 <!-- Angular Controllers -->
+	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_controllers/cpRootCtrl.js')}"/>
 	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_controllers/loginCtrl.js')}"/>
 	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_controllers/questionsCtrl.js')}"/>  
 

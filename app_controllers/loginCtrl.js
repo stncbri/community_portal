@@ -1,4 +1,4 @@
-app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService', function ($scope, vfr, $location,loginService) {
+app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService','sharedObject' ,function ($scope, vfr, $location,loginService,sharedObject) {
             $scope.beforeAuthentication = true;
             $scope.isAuthenticated = false;
             $scope.user = {userid: "walmart-buyer@dnb.com", password: "password"};
@@ -13,10 +13,9 @@ app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService', functi
                         $scope.loader = {loading: false};
                         $scope.beforeAuthentication = false;
                         $scope.isAuthenticated = true;
-                        if (!$scope.$$phase) {
-                            $scope.$digest();
-                        }
-                        $location.path( "/questionnaire" ); 
+                        sharedObject.put('user',$scope.user);
+                        $scope.$digest();
+                        $scope.$apply(function() { $location.path("/questionnaire"); }); //Use this if outside angula digest. 
                     } else {
                         //handle error message
                         $("#error-message").removeClass('hidden');
