@@ -1,6 +1,6 @@
 app.factory('sharedObject',['$rootScope', function($rootScope) {  /// Use this object in controllers as shared storage. 
     var sharedObject = {};									      /// add listeners to any key using addListner()  	
-    var secret="_a";											  /// Only use put() and get() methods access data.  	
+    var secret="_a";											  /// Only use put() and get() methods access data.   	
     
     var broadcastOn=[];
 
