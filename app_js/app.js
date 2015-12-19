@@ -9,5 +9,5 @@ app.config ( function($routeProvider,ngForceConfig) {
             templateUrl :  ngForceConfig.resourceUrl+'/app_templates/questionnaire.html' 
         }).when('/', {
             templateUrl : ngForceConfig.resourceUrl+'/app_templates/login.html'             
-        }).otherwise({redirectTo: '/questionnaire'}); 
+        }).when('/portal',{templateUrl :  ngForceConfig.resourceUrl+'/app_templates/supplier-portal.html'}).otherwise({redirectTo: '/questionnaire'}); 
 });

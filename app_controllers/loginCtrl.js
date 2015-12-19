@@ -13,9 +13,13 @@ app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService','shared
                         $scope.loader = {loading: false};
                         $scope.beforeAuthentication = false;
                         $scope.isAuthenticated = true;
+                        if (!$scope.$$phase) {
+                            $scope.$digest();
+                        }
+                        $location.path( "/portal" );
                         sharedObject.put('user',$scope.user);
                         $scope.$digest();
-                        $scope.$apply(function() { $location.path("/questionnaire"); }); //Use this if outside angula digest. 
+                        $scope.$apply(function() { $location.path("/portal"); }); //Use this if outside angula digest.
                     } else {
                         //handle error message
                         $("#error-message").removeClass('hidden');
