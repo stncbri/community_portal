@@ -16,7 +16,7 @@ app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService', functi
                         if (!$scope.$$phase) {
                             $scope.$digest();
                         }
-                        $location.path( "/questionnaire" ); 
+                        $location.path( "/portal" );
                     } else {
                         //handle error message
                         $("#error-message").removeClass('hidden');

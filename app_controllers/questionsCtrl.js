@@ -10,7 +10,9 @@ app.controller('questionsCtrl', ['$scope', '$dialog', 'vfr', 'ngForceConfig', 'q
 		}
 	}); 
 	
-
+$scope.getPartial = function (path){
+	return ngForceConfig.resourceUrl+path;
+}
 	$scope.makeQuestionTree = function (){		 //TODO may be better when located apex service.
 		function findintree (m,v){ 
 			for( var i=0 ; i<m.length ; i++ ) {

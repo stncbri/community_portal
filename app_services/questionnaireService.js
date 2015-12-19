@@ -11,7 +11,7 @@ app.service('questionnaireService', [ 'vfr',  function ( vfr){
         
         
         this.getQuestionnaire = function () {
-            var questionnaireQuery = vfr.query("SELECT Id,  QuestionType__c, QuestionText__c ,Parent__c , Name  FROM Question__c ");
+            var questionnaireQuery = vfr.query("Select Id,  Name, DataType__c, isAnswerRequired__c, isPrefilledbyDNB__c, QuestionText__c, Selector__c, QuestionType__c, Parent__c, DisplayLevel__c, DisplayOrder__c, RegisteredLevel__c FROM Question__c");
             return questionnaireQuery.then(function (response) {
                 return response.records;
             }); 
