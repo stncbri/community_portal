@@ -1,6 +1,6 @@
 <apex:page showHeader="false" sidebar="false" 
     standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false"
-    showHeader="false" contentType="text/javascript">
+    contentType="text/javascript">
 (function(angular){
 
     var sitePrefix = '{!$Site.Prefix}';

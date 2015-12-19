@@ -5,7 +5,7 @@
         <name>StaticResource</name>
     </types>
     <types>
-        <members>CommunityPortal</members>
+        <members>*</members>
         <name>ApexPage</name>
     </types>
     <version>29.0</version>

@@ -1,5 +1,5 @@
-app.controller('questionsCtrl', ['$scope', '$dialog', 'vfr', 'ngForceConfig', 'questionnaireService', 
-                                 function($scope, $dialog, vfr,ngForceConfig,questionnaireService) {
+app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService',
+                                 function($scope, vfr,ngForceConfig,questionnaireService) {
 
 	questionnaireService.getQuestionnaire().then(function(d) {
 		$scope.questions = d;
@@ -8,20 +8,20 @@ app.controller('questionsCtrl', ['$scope', '$dialog', 'vfr', 'ngForceConfig', 'q
 		if(!$scope.$$phase) {
 			$scope.$digest();
 		}
-	}); 
-	
+	});
+
 $scope.getPartial = function (path){
 	return ngForceConfig.resourceUrl+path;
 }
 	$scope.makeQuestionTree = function (){		 //TODO may be better when located apex service.
-		function findintree (m,v){ 
+		function findintree (m,v){
 			for( var i=0 ; i<m.length ; i++ ) {
-			    var q=m[i]; 
+			    var q=m[i];
 			    if( v.Parent__c &&  q.Id ===v.Parent__c){
 			    	 q.children.push(v);
 			    	 found.parent=true;
 			    }
-			    if(   q.Parent__c &&  q.Parent__c ===v.Id){			    	 
+			    if(   q.Parent__c &&  q.Parent__c ===v.Id){
 			    	 var json_data = JSON.stringify(q);
 			    	 var copyq =JSON.parse(json_data);
 			    	 v.children.push(copyq);
@@ -32,7 +32,7 @@ $scope.getPartial = function (path){
 			    	 else
 			    		 m.splice(i,1,v);
 			    	 found.child=true;
-			    	 continue; 
+			    	 continue;
 			    }
 			    if(q.children.length>0){
 			    	findintree(q.children , v);
@@ -40,23 +40,23 @@ $scope.getPartial = function (path){
 			}
 			return  ;
 		};
-		
+
 		var tree=[];
 		var qs=$scope.questions;
 		for( var i=0 ; i<qs.length ; i++ ) {
 		    var q=qs[i];
-		    q.children=[];  
+		    q.children=[];
 	    	var found={parent:false,child:false};
-	    	
-	    	findintree(tree,q,found);	    	
+
+	    	findintree(tree,q,found);
 	    	if(!found.child && !found.parent){
 	    		tree.push(q);
-	    	}  
+	    	}
 		}
-		
+
 		return tree;
-	}; 
- 
- 
+	};
+
+
 
 }]);
