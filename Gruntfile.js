@@ -67,8 +67,8 @@ module.exports = function(grunt) {
             },
             dev2:  {
                 options: {
-                  user: 'salesforce.dnb.poc@gmail.com', // storing my un/pw as env vars for security
-                  pass: 'December2015*ljyiyGFaC8ENM35aQU9mafjao', // storing my un/pw as env vars for security
+                  user: process.env.DEV1USER, // storing my un/pw as env vars for security
+                  pass: process.env.DEV1PASS, // storing my un/pw as env vars for security
                 },
                 pkg: {
                   staticresource: ['*'],
