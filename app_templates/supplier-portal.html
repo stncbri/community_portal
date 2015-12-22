@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <div class="row">
+        <hr size="10" noshade=""/>
+        <div class="page-heading">
+            <h3 style="text-align: center">Welcome to Buyer-Supplier Community Portal</h3>
+        </div>
+        <div ng-controller="questionsCtrl">
+            <uib-tabset>
+                <uib-tab heading="Dashboard">
+                    <ng-include src="getPartial('/app_templates/supplier-dashboard.html')"></ng-include>
+                    <!--<div ng-include="'../app_templates/supplier-dashboard.html'"></div>-->
+                </uib-tab>
+                <uib-tab ng-repeat="l1 in questionnaire track by $index" heading="{{l1.QuestionText__c}}"
+                         active="section.active" ng-show="!l1.length">
+                    <ng-include src="getPartial('/app_templates/supplier-questionnaire.html')"></ng-include>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>
