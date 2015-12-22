@@ -1,0 +1,37 @@
+<div class="row" style="padding-left:65px;padding-right:60px;padding-top:60px" id="dashboard-container">
+    <div class="col-md-12">
+        <div class="panel panel-default" id="questionnaire-panel-data">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Questionnaire Summary
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <ul class="list-group" id="sections" >
+                        <li  ng-repeat="l1 in questionnaire" class="list-group-item">
+                            <a href="" ng-click="l1.active = true">{{l1.QuestionText__c}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-default" id="invitation-summary-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Invitations
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p>You have been invited to join <b>{{BuyerCompany}}</b> 's Supplier Network </p>
+                    <button type="submit" class="btn btn-primary">
+                        Join
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

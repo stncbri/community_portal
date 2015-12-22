@@ -1,0 +1,32 @@
+<uib-tabset vertical="true" type="tab" addclass="nav-stacked  col-md-3">
+    <uib-tab ng-repeat="l2 in l1.children track by $index" heading="{{l2.QuestionText__c}}"
+             ng-show="l2.children.length">
+        <div class="row  col-md-8">
+            <div ng-repeat="l3 in l2.children track by $index" ng-show="l3.children.length">
+                <div class="panel panel-default" id="questionnaire-panel-data">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <b>{{l3.QuestionText__c}}</b>
+                            <button type="button" class="btn btn-default" ng-click="upDateQuestion()">Update</button>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div class="form-group" ng-repeat="l4 in l3.children track by $index">
+                                <label for="{{l4.Id}}" class="control-label col-sm-6">
+                                    <b>{{l4.QuestionText__c}}</b>
+
+                                </label>
+                                <div class="col-sm-6">
+                                    <input ng-if = "l4.DataType__c == 'text' || l4.DataType__c=='number' || l4.DataType__c=='date' " class="form-control" id="{{l4.Id}}" type="{{l4.DataType__c}}" ng-model="answers[l4.Id]"/>
+                                    <input ng-if = "l4.DataType__c == 'checkbox'"  id="{{l4.Id}}" type="checkbox" ng-model="answers[l4.Id]"/>
+                                    <textarea ng-if = "l4.DataType__c == 'textarea'" id="{{l4.Id}}" class="form-control" ng-model="answers[l4.Id]"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </uib-tab>
+</uib-tabset>
