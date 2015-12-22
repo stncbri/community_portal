@@ -13,6 +13,14 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
 $scope.getPartial = function (path){
 	return ngForceConfig.resourceUrl+path;
 }
+
+	$scope.answers ={};
+
+	$scope.upDateQuestion = function (){
+		console.log($scope.answers);
+	}
+
+
 	$scope.makeQuestionTree = function (){		 //TODO may be better when located apex service.
 		function findintree (m,v){
 			for( var i=0 ; i<m.length ; i++ ) {
