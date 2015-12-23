@@ -1,4 +1,4 @@
-app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService','sharedObject' ,function ($scope, vfr, $location,loginService,sharedObject) {
+app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService','sharedObject' ,'$timeout',function ($scope, vfr, $location,loginService,sharedObject,$timeout) {
             $scope.beforeAuthentication = true;
             $scope.isAuthenticated = false;
             $scope.user = {userid: "walmart-buyer@dnb.com", password: "password"};
@@ -13,13 +13,13 @@ app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService','shared
                         $scope.loader = {loading: false};
                         $scope.beforeAuthentication = false;
                         $scope.isAuthenticated = true;
-                        if (!$scope.$$phase) {
-                            $scope.$digest();
-                        }
+                        
                         $location.path( "/portal" );
-                        sharedObject.put('user',$scope.user);
-                        $scope.$digest();
-                        $scope.$apply(function() { $location.path("/portal"); }); //Use this if outside angula digest.
+                        $scope.userResponse[0].isAuthenticated=true;
+	                sharedObject.put('user', $scope.userResponse[0]);
+        	        $timeout(function () {
+                	    $location.path("/portal");
+                	});
                     } else {
                         //handle error message
                         $("#error-message").removeClass('hidden');

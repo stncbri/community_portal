@@ -4,3 +4,4 @@
 .externalTool*
 *Gruntfile.js
 *ant*
+.build*

@@ -1,18 +1,26 @@
-app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService',
-                                 function($scope, vfr,ngForceConfig,questionnaireService) {
+app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService','sharedObject', '$timeout',
+                                 function($scope, vfr,ngForceConfig,questionnaireService, sharedObject, $timeout) {
 
-	questionnaireService.getQuestionnaire().then(function(d) {
-		$scope.questions = d;
-		$scope.questionnaire=$scope.makeQuestionTree();
-		console.log($scope.questionnaire);
-		if(!$scope.$$phase) {
-			$scope.$digest();
-		}
-	});
-
-$scope.getPartial = function (path){
-	return ngForceConfig.resourceUrl+path;
-}
+        $scope.user = [];
+        $scope.user = sharedObject.get('user');
+        if (!$scope.user.isAuthenticated) {
+            $timeout(function () {
+                $location.path("/");
+            });
+        }
+        if (angular.isUndefined(sharedObject.get('questionnaire'))) {
+            questionnaireService.getQuestionnaire().then(function (d) {
+                $scope.questions = d;
+                $scope.questionnaire = $scope.makeQuestionTree();
+                sharedObject.put('questionnaire', $scope.questionnaire);
+                sharedObject.addListner('questionnaire');
+                if (!$scope.$$phase) {
+                    $scope.$digest();
+                }
+            });
+        }else{
+            $scope.questionnaire = sharedObject.get('questionnaire');
+        }
 
 	$scope.answers ={};
 
