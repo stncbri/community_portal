@@ -45,7 +45,7 @@ module.exports = function(grunt) {
       copy: {
           main: {
             files: [
-              { src: ['app_*/**/*','ngForce/**/*','bootstrap/**/*','img/**/*'], dest: 'tmp/' },
+              { src: ['app_*/**/*','ngForce/**/*','bootstrap/**/*','bower_components/**/*','img/**/*'], dest: 'tmp/' },
               { expand: true, flatten: true,src: ['app_vf_pages/pages/*'], dest: 'build/pages/' }
             ]
           }

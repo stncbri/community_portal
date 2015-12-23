@@ -1,13 +1,27 @@
-var app = angular.module('communityPortalApp', ['ngRoute' , 'ui.bootstrap',  'ngForce','ngForceConstants']);
+var app = angular.module('communityPortalApp', ['ngAnimate','ngRoute' ,'ngProgress', 'ui.bootstrap',  'ngForce','ngForceConstants']);
 
 
- 
-  
-app.config ( function($routeProvider,ngForceConfig) {
-    $routeProvider 
-        .when('/questionnaire', {
-            templateUrl :  ngForceConfig.resourceUrl+'/app_templates/questionnaire.html' 
-        }).when('/', {
-            templateUrl : ngForceConfig.resourceUrl+'/app_templates/login.html'             
-        }).when('/portal',{templateUrl :  ngForceConfig.resourceUrl+'/app_templates/supplier-portal.html'}).otherwise({redirectTo: '/questionnaire'}); 
+
+
+app.config(function ($routeProvider,ngForceConfig) {
+    $routeProvider
+        .when('/question/:Id', {
+            templateUrl: ngForceConfig.resourceUrl+'/app_templates/supplier-questionnaire.html'
+        }).when('/portal', {templateUrl: ngForceConfig.resourceUrl+'/app_templates/portal.html'})
+        .when('/', {
+            templateUrl: ngForceConfig.resourceUrl+'/app_templates/login.html'
+        }).otherwise({redirectTo: '/'});
+});
+
+app.run(function ($rootScope, ngProgress,ngProgressFactory) {
+    $rootScope.progressBar = ngProgressFactory.createInstance();
+    $rootScope.progressBar.setColor("green");
+    $rootScope.$on('$routeChangeStart', function () {
+        $rootScope.progressBar.start();
+    });
+
+    $rootScope.$on('$routeChangeSuccess', function () {
+        $rootScope.progressBar.complete();
+    });
+
 });

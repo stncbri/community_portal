@@ -2,29 +2,36 @@
  
 <!-- Css -->
     <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'bootstrap/css/bootstrap.min.css')}"/>
-    <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'bootstrap/css/bootstrap-responsive.min.css')}"/>  
     <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'ngForce/css/bootstrap-custom.css')}"/>
     <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'app_css/app.css')}"/> 
+    <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'bower_components/ngprogress/ngProgress.css')}"/> 
 
     <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/jquery-2.0.0.min.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular-route.min.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular-animate.min.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular-touch.min.js')}"></script>
-    <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/ui-bootstrap-tpls.js')}"></script>
+	<script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/ui-bootstrap-tpls.js')}"></script>
 	<script src="{!URLFOR($Resource.LABJS_ngForce, 'ngForce/js/log.min.js')}"/>
-        <script src="{!URLFOR($Resource.LABJS_ngForce, 'ngForce/services/ngForce.min.js')}"/>
+	<script src="{!URLFOR($Resource.LABJS_ngForce, 'ngForce/services/ngForce.min.js')}"/>
+	<script src="{!URLFOR($Resource.CommunityPortal, 'bower_components/ngprogress/build/ngprogress.min.js')}"></script>
+    
+        
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_js/app.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/cpRootCtrl.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/loginCtrl.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/questionsCtrl.js')}"></script>
-    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/communityapp.js')}"></script>
 
 	
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/cpMainService.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/loginService.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/questionnaireService.js')}"></script>
 
+    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/communityapp.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/showBuyerDashboard.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/renderQuestionnaire.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/showSupplierDashboard.js')}"></script>
+    
     <script>
         (function (angular) {
 
@@ -44,8 +51,9 @@
 
     <body ng-app="communityPortalApp">
 
-    <ng-view></ng-view>
-
+    <div class="container">
+        <community-app></community-app>
+    </div>
 
     </body>
 </apex:page>
