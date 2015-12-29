@@ -334,6 +334,15 @@ angular.module('ngForce', [], function($provide) {
 			return deferred.promise();
 		};
 
+		vfRemote.updateResponse = function(fields, callback, error) {
+			var deferred = $.Deferred();
+			Visualforce.remoting.Manager.invokeAction('ngForceController.bulkUpsertResponse', fields, function(result) {
+				handleResult(result, callback, error, false, deferred);
+			}, {
+				escape: false
+			});
+			return deferred.promise();
+		};
 		/* 
 		 * Upsert - creates or updates record of the given type, based on the
 		 * given external Id.
