@@ -1,4 +1,4 @@
-app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService','sharedObject' ,'$timeout',function ($scope, vfr, $location,loginService,sharedObject,$timeout) {
+app.controller('loginCtrl', ['$scope', 'vfr', '$location','identityService','sharedObject' ,'$timeout',function ($scope, vfr, $location,identityService,sharedObject,$timeout) {
             $scope.beforeAuthentication = true;
             $scope.isAuthenticated = false;
             $scope.user = {userid: "walmart-buyer@dnb.com", password: "password"};
@@ -6,7 +6,7 @@ app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService','shared
             $scope.loader = {loading: false};
             $scope.login = function () {
                 $scope.loader = {loading: true};
-                loginService.findUser($scope.user.userid).then(function (v) {
+                identityService.findUser($scope.user.userid).then(function (v) {
                     $scope.userResponse = v;
                     if (!angular.isUndefined($scope.userResponse[0]) && $scope.userResponse[0].Password__c == $scope.user.password) {
                         $scope.status = "success";
@@ -14,7 +14,7 @@ app.controller('loginCtrl', ['$scope', 'vfr', '$location','loginService','shared
                         $scope.beforeAuthentication = false;
                         $scope.isAuthenticated = true;
                         
-                        $location.path( "/portal" );
+                       
                         $scope.userResponse[0].isAuthenticated=true;
 	                sharedObject.put('user', $scope.userResponse[0]);
         	        $timeout(function () {

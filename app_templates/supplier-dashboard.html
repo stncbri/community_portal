@@ -7,19 +7,24 @@
         <div class="panel panel-default" id="questionnaire-panel-data">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    Questionnaire Summary
+                    <b> Questionnaire Summary</b>
                 </h3>
             </div>
-            <div class="panel-body">
-                <div>
-                    <ul class="list-group" id="sections">
-                        <li ng-repeat="l1 in questionnaire" class="list-group-item">
-                            <a href="#/question/:{{l1.Id}}" ng-click="l1.active = true">{{l1.QuestionText__c}}</a>
-                        </li>
+
+            <!--TODO: Populate the status based on the answers.. -->
+            <uib-accordion close-others="oneAtATime">
+                <uib-accordion-group ng-repeat="l1 in questionnaire">
+                    <uib-accordion-heading>
+                        {{l1.QuestionText__c}}
+                    <!--TODO: Make this based on the status of the questionnaire.. -->
+                        <i class="glyphicon glyphicon-ok pull-right"></i>
+                    </uib-accordion-heading>
+                    <ul class="list-group">
+                        <li ng-repeat="l2 in l1.children" class="list-group-item"><a ng-click="l1.active=true"> {{l2.QuestionText__c}}</a><i class="glyphicon glyphicon-time pull-right"></i></li>
                     </ul>
-                </div>
-            </div>
-        </div>
+                </uib-accordion-group>
+            </uib-accordion>
+       </div>
         <div class="col-sm-12">
             <div class="panel panel-default" id="invitation-summary-panel">
                 <div class="panel-heading">
@@ -28,7 +33,7 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <p>You have been invited to join <b>{{BuyerCompany}}</b> 's Supplier Network </p>
+                    <p>You have been invited to join <b>{{buyer[0].Name}}</b> 's Supplier Network </p>
                     <button type="submit" class="btn btn-primary">
                         Join
                     </button>
