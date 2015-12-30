@@ -2,61 +2,60 @@
  
 <!-- Css -->
     <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'bootstrap/css/bootstrap.min.css')}"/>
-    <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'bootstrap/css/bootstrap-responsive.min.css')}"/>  
     <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'ngForce/css/bootstrap-custom.css')}"/>
     <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'app_css/app.css')}"/> 
+    <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'bower_components/ngprogress/ngProgress.css')}"/> 
 
-<!-- Javascript -->
-    <apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/jquery-2.0.0.min.js')}"/>
-    <apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular.min.1.4.0.js')}"/>    
-    <apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular-route.1.4.0.js')}"/>
-    <apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular-resource.min.1.4.0.js')}"/> 
-	         
-    <apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/ui-bootstrap-tpls-0.3.0.min.js')}"/>
-      <apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/log.min.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular-ui.min.js')}"/>    
-
-
-<!-- This is the ngForce module and service that provides VF Remoting access to the API -->
-    <apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'ngForce/services/ngForce.min.js')}"/>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/jquery-2.0.0.min.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular-route.min.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular-animate.min.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular-touch.min.js')}"></script>
+	<script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/ui-bootstrap-tpls.js')}"></script>
+	<script src="{!URLFOR($Resource.LABJS_ngForce, 'ngForce/js/log.min.js')}"/>
+	<script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/services/ngForce.js')}"/>
+	<script src="{!URLFOR($Resource.CommunityPortal, 'bower_components/ngprogress/build/ngprogress.min.js')}"></script>
     
+        
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_js/app.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/cpRootCtrl.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/loginCtrl.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/questionsCtrl.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/buyerCtrl.js')}"></script>
+
+	
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/cpMainService.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/loginService.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/questionnaireService.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/buyerService.js')}"></script>
+
+    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/communityapp.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/showBuyerDashboard.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/renderQuestionnaire.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/showSupplierDashboard.js')}"></script>
     
-    <script type="text/javascript">
-    	(function(angular){
+    <script>
+        (function (angular) {
 
-    var sitePrefix = '{!$Site.Prefix}';
-    if(sitePrefix === '') sitePrefix ='/apex';
+            var sitePrefix = '{!$Site.Prefix}';
+            if (sitePrefix === '') sitePrefix = '/apex';
 
-    angular.module('ngForceConstants', []).constant('ngForceConfig', {
-        sessionId: '{!$Api.Session_ID}',
-        sitePrefix: sitePrefix,
-        resourceUrl: '{!URLFOR($Resource.CommunityPortal)}'
-    });
+            angular.module('ngForceConstants', []).constant('ngForceConfig', {
+                sessionId: '{!$Api.Session_ID}',
+                sitePrefix: sitePrefix,
+                resourceUrl: '{!URLFOR($Resource.CommunityPortal)}'
+            });
 
-})(angular);
-	
-	</script>   
+        })(angular);
 
-<!-- Angular Modules -->
-<!-- This includes the module that defines our application -->
-    <apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_js/app.js')}"/>
+    </script>
 
-<!-- Angular Services -->
-	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_services/cpMainService.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_services/loginService.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_services/questionnaireService.js')}"/>
-	
-<!-- Angular Controllers -->
-	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_controllers/cpRootCtrl.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_controllers/loginCtrl.js')}"/>
-	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_controllers/questionsCtrl.js')}"/>  
 
-<!-- Angular Directives -->
-	<apex:includeScript value="{!URLFOR($Resource.CommunityPortal, 'app_directives/communityapp.js')}"/> 
+    <body ng-app="communityPortalApp">
 
-<body ng-app="communityPortalApp"> 
-<div>
-    <community-app></community-app>
-</div>  
-</body>
+    <div class="container">
+        <community-app></community-app>
+    </div>
+
+    </body>
 </apex:page>
