@@ -16,10 +16,12 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                     console.log($scope.supplier);
                     if ($scope.supplier != null) {
                         questionnaireService.getAnswerObj($scope.supplier).then(function (resp) {
-                            if (angular.isDefined && resp.length >= 0) {
-                                $scope.answers = questionnaireService.convertQustRsptoAnswerModel(resp);
-                                console.log($scope.buyer);
-                            }
+                           if (angular.isDefined(resp) && resp.length >= 0) {
+                                        for (var item in resp) {
+                                            $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
+                                        }
+
+                                    }
                         });
                     }
                 });
