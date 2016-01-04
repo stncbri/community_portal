@@ -2,41 +2,36 @@
     <uib-tab ng-repeat="l2 in l1.children track by $index" heading="{{l2.QuestionText__c}}"
              ng-show="l2.children.length">
         <div class="row  col-md-8">
-
-            <button type="button" class="btn btn-default" ng-click="upDateAnswer()">
-                Update
-            </button>
-
             <div ng-repeat="l3 in l2.children track by $index" ng-show="l3.children.length">
                 <div class="panel panel-default" id="questionnaire-panel-data">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <b>{{l3.QuestionText__c}}</b>
-                       </h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-horizontal">
-                            <div class="form-group" ng-repeat="l4 in l3.children track by $index">
-                                <label for="{{l4.Id}}" class="control-label col-sm-6">
-                                    {{l4.QuestionText__c}}
-                                </label>
+                    <form name="{{l3.Id}}" ng-submit="upDateAnswer()">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <b>{{l3.QuestionText__c}}</b>
+                                <input type="submit" value="submit" class="btn btn-primary"/>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                <div class="form-group" ng-repeat="l4 in l3.children track by $index">
+                                    <app-input-text-component ng-if="l4.DataType__c=='text'" question="l4" model="answers[l4.Id]"></app-input-text-component>
+                                    <app-input-date-component ng-if="l4.DataType__c=='date'" question="l4" model="answers[l4.Id]"></app-input-date-component>
+                                    <app-input-email-component ng-if="l4.DataType__c=='email'" question="l4" model="answers[l4.Id]"></app-input-email-component>
+                                    <app-input-url-component ng-if="l4.DataType__c=='url'" question="l4" model="answers[l4.Id]"></app-input-url-component>
+                                    <app-input-url-component ng-if="l4.DataType__c=='textarea'" question="l4" model="answers[l4.Id]"></app-input-url-component>
+                                    <app-input-url-component ng-if="l4.DataType__c=='select'" question="l4" model="answers[l4.Id]"></app-input-url-component>
+                                    <app-input-number-component ng-if="l4.DataType__c=='number'" question="l4" model="answers[l4.Id]"></app-input-number-component>
+                                    <app-input-checkbox-component ng-if="l4.DataType__c=='checkbox'" question="l4" model="answers[l4.Id]"></app-input-checkbox-component>
 
-                                <div class="col-sm-6">
-                                    <input ng-if="l4.DataType__c == 'text' || l4.DataType__c=='number' || l4.DataType__c=='date' "
-                                           class="form-control" id="{{l4.Id}}" type="{{l4.DataType__c}}"
-                                           ng-model="answers[l4.Id]"/>
-                                    <input ng-if="l4.DataType__c == 'checkbox'" id="{{l4.Id}}"
-                                           type="checkbox"
-                                           ng-model="answers[l4.Id]"/>
-                                        <textarea ng-if="l4.DataType__c == 'textarea'" id="{{l4.Id}}"
-                                                  class="form-control" ng-model="answers[l4.Id]"></textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
+
             </div>
+
         </div>
+
     </uib-tab>
 </uib-tabset>
-
