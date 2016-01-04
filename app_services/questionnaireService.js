@@ -5,7 +5,7 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
 
         var selectCriteria = '';
         if (level == '1') {
-            selectCriteria = ' where RegisteredLevel__c= 1';
+            selectCriteria = " where RegisteredLevel__c= 1 or QuestionType__c!='Question' "; //TODO will have to fix it later
         } else {
             //get the selector obj.. for now keep it as empty..
         }
@@ -18,29 +18,29 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
 
     this.getAnswerObj = function(supplier){
         var query = vfr.query("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from Supplierresponse__c where supplier__c='" + supplier[0].Id+"'");
+		console.log(query);
         return query.then(function (response) {
+			console.log(response);
             return response.records;
         });
     }
 
     this.updateQuestionnaireResponses = function (supplier, buyer, answerModel) {
-        var convertAnswerModeltoQuestRsp = function (supplier, buyer, answerModel) {
-            var answerObj = [];
-            angular.forEach(answerModel, function (k, v) {
+        
+		 var answerObj = [];
+        for (var item in answerModel)
+            if (answerModel.hasOwnProperty(item)) {
                 var tmpJson = {
-                    "Buyer__c": buyer[0].Id,
-                    "Question__c": k,
-                    "ResponseID__c": k+supplier[0].Id,
-                    "ResponseText__c": v,
+                    "Buyer__c": buyer[0].Buyer__c,
+                    "Question__c": item,
+                    "ResponseID__c": item + supplier[0].Id,
+                    "ResponseText__c": answerModel[item],
                     "Supplier__c": supplier[0].Id
                 }
                 answerObj.push(tmpJson);
-            })
-            return answerObj;
-        }
-
-        var answerObj = convertAnswerModeltoQuestRsp(supplier, buyer, answerModel);
-        return vfr.updateResponse(answerObj);
+            }
+		console.log(answerObj);
+        return vfr.updateResponse(angular.toJson(answerObj));
     }
 
 

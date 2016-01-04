@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div ng-controller="questionsCtrl">
+            <uib-tabset type="tabs">
+                <uib-tab heading="Dashboard">
+                    <div ng-if="user.Profile__c == 'supplier'">
+                        <show-supplier-dashboard></show-supplier-dashboard>
+                    </div>
+                    <div ng-if="user.Profile__c == 'buyer'">
+                        <show-buyer-dashboard></show-buyer-dashboard>
+                    </div>
+                </uib-tab>
+				<uib-tab heading="Supplier">					
+					   <show-buyer-supplier></show-buyer-supplier>
+				</uib-tab>
+                <uib-tab ng-repeat="l1 in questionnaire track by $index" heading="{{l1.QuestionText__c}}"
+                         ng-show="!l1.length" active="l1.active">
+                    <render-questionnaire></render-questionnaire>
+                </uib-tab>
+			</uib-tabset>
+        </div>
+    </div>
+</div>
