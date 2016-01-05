@@ -1,6 +1,6 @@
 app.service('questionnaireService', ['vfr','sharedObject', function (vfr, sharedObject) {
     this.getQuestionnaire = function (user) {
-        
+
 		var level = user.RegisteredLevel__c;
 
         var selectCriteria = '';
@@ -25,13 +25,13 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
         });
     }
 
-    this.updateQuestionnaireResponses = function (supplier, buyer, answerModel) {
-        
+    this.updateQuestionnaireResponses = function (supplier, buyers, answerModel) {
+
 		 var answerObj = [];
         for (var item in answerModel)
             if (answerModel.hasOwnProperty(item)) {
                 var tmpJson = {
-                    "Buyer__c": buyer[0].Buyer__c,
+                    "Buyer__c": buyers[0].Buyer__c,
                     "Question__c": item,
                     "ResponseID__c": item + supplier[0].Id,
                     "ResponseText__c": answerModel[item],

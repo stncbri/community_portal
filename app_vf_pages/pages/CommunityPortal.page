@@ -23,18 +23,19 @@
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/questionsCtrl.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/formFieldsCtrl.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/buyerCtrl.js')}"></script>
-	
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/portalCtrl.js')}"></script>
+
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/cpMainService.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/loginService.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/questionnaireService.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/buyerService.js')}"></script>
 
-    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/communityapp.js')}"></script>
-    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/showBuyerDashboard.js')}"></script>
-    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/renderQuestionnaire.js')}"></script>
-    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/showSupplierDashboard.js')}"></script>
-    <script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/inputForm.js')}"></script>
-    	<script src="{!URLFOR($Resource.CommunityPortal, '/app_directives/showBuyerSupplier.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/communityapp.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/showBuyerDashboard.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/renderQuestionnaire.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/showSupplierDashboard.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/inputForm.js')}"></script>
+    	<script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/showBuyerSupplier.js')}"></script>
     
     <script>
         (function (angular) {
