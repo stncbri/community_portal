@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div ng-controller="portalCtrl">
+            <div ng-if="user.Profile__c == 'supplier'">
+                <show-supplier-dashboard supplier="supplier"></show-supplier-dashboard>
+            </div>
+            <div ng-if="user.Profile__c == 'buyer'">
+            <uib-tabset type="tabs">
+                <uib-tab heading="Dashboard">
+                        <show-buyer-dashboard></show-buyer-dashboard>
+                </uib-tab>
+				<uib-tab heading="Supplier">					
+					   <show-buyer-supplier></show-buyer-supplier>
+				</uib-tab>
+			</uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>
