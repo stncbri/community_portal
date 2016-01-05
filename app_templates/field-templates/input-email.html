@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="field">
     <label for="{{question.Id}}" class="control-label col-sm-6">
         {{question.QuestionText__c}}
@@ -6,4 +7,15 @@
            ng-model="model"
            id="{{question.Id}}"
            class="input"/>
+=======
+<div class="field">
+    <label for="{{question.Id}}" class="control-label col-sm-6">
+        {{question.QuestionText__c}}
+    </label>
+    <input type="email"
+           ng-model="model"
+           id="{{question.Id}}"
+           ng-required="question.isAnswerRequired__c"
+           class="input"/>
+>>>>>>> pr/9
 </div>

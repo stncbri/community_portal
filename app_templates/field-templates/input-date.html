@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="field">
     <label for="{{question.Id}}" class="control-label col-sm-6">
         {{question.QuestionText__c}}
@@ -8,4 +9,17 @@
            ng-max="question.Max__c"
            ng-min="question.Min__c"
            class="input"/>
+=======
+<div class="field">
+    <label for="{{question.Id}}" class="control-label col-sm-6">
+        {{question.QuestionText__c}}
+    </label>
+    <input type="date"
+           ng-model="model"
+           id="{{question.Id}}"
+           ng-max="question.Max__c"
+           ng-min="question.Min__c"
+           ng-required="question.isAnswerRequired__c"
+           class="input"/>
+>>>>>>> pr/9
 </div>

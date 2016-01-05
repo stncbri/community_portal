@@ -343,6 +343,7 @@ angular.module('ngForce', [], function($provide) {
 			});
 			return deferred.promise();
 		};
+		
 		/* 
 		 * Upsert - creates or updates record of the given type, based on the
 		 * given external Id.

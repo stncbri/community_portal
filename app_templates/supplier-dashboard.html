@@ -1,44 +1,73 @@
-<div class="row" style="padding-left:65px;padding-right:60px;" id="dashboard-container">
-    <div class="page-heading">
-        <h3 style="text-align: center">Supplier Dashboard</h3>
-    </div>
-
-    <div class="col-sm-12">
-        <div class="panel panel-default" id="questionnaire-panel-data">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <b> Questionnaire Summary</b>
-                </h3>
-            </div>
-
-            <!--TODO: Populate the status based on the answers.. -->
-            <uib-accordion close-others="oneAtATime">
-                <uib-accordion-group ng-repeat="l1 in questionnaire">
-                    <uib-accordion-heading>
-                        {{l1.QuestionText__c}}
-                    <!--TODO: Make this based on the status of the questionnaire.. -->
-                        <i class="glyphicon glyphicon-ok pull-right"></i>
-                    </uib-accordion-heading>
-                    <ul class="list-group">
-                        <li ng-repeat="l2 in l1.children" class="list-group-item"><a ng-click="l1.active=true"> {{l2.QuestionText__c}}</a><i class="glyphicon glyphicon-time pull-right"></i></li>
-                    </ul>
-                </uib-accordion-group>
-            </uib-accordion>
-       </div>
-        <div class="col-sm-12">
-            <div class="panel panel-default" id="invitation-summary-panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Invitations
-                    </h3>
+<div>
+    <uib-tabset>
+        <uib-tab heading="Dashboard">
+            <div class="row" style="padding-left:65px;padding-right:60px;" id="dashboard-container">
+                <div class="page-heading">
+                    <h3 style="text-align: center">Supplier Dashboard</h3>
                 </div>
-                <div class="panel-body">
-                    <p>You have been invited to join <b>{{buyer[0].Name}}</b> 's Supplier Network </p>
-                    <button type="submit" class="btn btn-primary">
-                        Join
-                    </button>
+
+                <div class="col-sm-12">
+                    <div class="panel panel-default" id="questionnaire-panel-data">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <b> Questionnaire Summary</b>
+
+                                <div class="dropdown pull-right">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Authorize and Publish
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li ng-repeat="buyer in buyers track by $index"><a ng-click="publishTo(buyer)">{{buyer.Name}}</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </h3>
+
+                        </div>
+                        <!--TODO: Populate the status based on the answers.. -->
+                        <uib-accordion close-others="oneAtATime">
+
+                            <uib-accordion-group ng-repeat="l1 in questionnaire">
+                                <uib-accordion-heading>
+                                    {{l1.QuestionText__c}}
+                                    <!--TODO: Make this based on the status of the questionnaire.. -->
+                                </uib-accordion-heading>
+                                <ul class="list-group">
+                                    <li ng-repeat="l2 in l1.children" class="list-group-item"><a
+                                            ng-click="l1.active=true">
+                                        {{l2.QuestionText__c}}</a>
+                                    </li>
+                                </ul>
+                            </uib-accordion-group>
+                        </uib-accordion>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-default" id="invitation-summary-panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Invitations
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div ng-repeat="buyer in buyers">
+                                    <p class="col-sm-6">You have been invited to join <b>{{buyer.Name}}</b> 's Supplier
+                                        Network </p>
+                                    <button type="submit" class="btn btn-primary col-sm-2">
+                                        Join
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </uib-tab>
+        <uib-tab ng-repeat="l1 in questionnaire track by $index" heading="{{l1.QuestionText__c}}"
+                 ng-show="!l1.length" active="l1.active">
+            <render-questionnaire></render-questionnaire>
+        </uib-tab>
+    </uib-tabset>
 </div>

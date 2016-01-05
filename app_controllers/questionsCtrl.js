@@ -1,9 +1,10 @@
-app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService', 'identityService', 'sharedObject', '$timeout','$location',
-                                 function($scope, vfr,ngForceConfig,questionnaireService, identityService, sharedObject, $timeout,$location) {
+app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService', 'identityService', 'sharedObject', '$timeout','$location','$routeParams',
+                                 function($scope, vfr,ngForceConfig,questionnaireService, identityService, sharedObject, $timeout,$location,$routeParams) {
 
-        $scope.user = [];
+		$scope.user = [];
         $scope.answers = {};
         $scope.user = sharedObject.get('user');
+<<<<<<< HEAD
         console.log($scope.user);
         if ($scope.user.isAuthenticated) {
             if ($scope.user.Profile__c == "supplier") {
@@ -23,32 +24,49 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
 
                                     }
                         });
+=======
+        $scope.searchButtonText = "Update";
+
+		$scope.supplierID = $routeParams.Id;
+		console.log($scope.supplierID)
+
+   		$scope.$watch('supplier', function (value) {
+            $scope.supplier = value;
+            if (angular.isDefined($scope.supplier)) {
+                questionnaireService.getAnswerObj($scope.supplier).then(function (resp) {
+                    if (angular.isDefined(resp) && resp.length >= 0) {
+                        for (var item in resp) {
+                            $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
+                        }
+
+>>>>>>> pr/9
                     }
                 });
             }
-            //$timeout(function () {
-            //    $location.path("/");
-            //});
-        }
-        if (angular.isUndefined(sharedObject.get('questionnaire'))) {
-            questionnaireService.getQuestionnaire($scope.user).then(function (d) {
-                $scope.questions = d;
-                $scope.questionnaire = $scope.makeQuestionTree();
-                sharedObject.put('questionnaire', $scope.questionnaire);
-                sharedObject.addListner('questionnaire');
-                if (!$scope.$$phase) {
-                    $scope.$digest();
-                }
-            });
-        } else {
-            $scope.questionnaire = sharedObject.get('questionnaire');
-        }
+        });
 
+
+        identityService.fetchBuyerCommunity($scope.user).then(function (resp) {
+            $scope.buyers = resp;
+        });
+
+
+
+        questionnaireService.getQuestionnaire($scope.user).then(function (d) {
+            $scope.questions = d;
+            $scope.questionnaire = $scope.makeQuestionTree();
+        });
+
+
+        $scope.publishTo = function (buyer){
+
+
+        }
 
         $scope.upDateAnswer = function () {
-            console.log($scope.answers);
-            questionnaireService.updateQuestionnaireResponses($scope.supplier,$scope.buyer,$scope.answers).then(function(resp){
-                console.log("Updated Response"+resp);
+            $scope.searchButtonText = "Updating";
+            questionnaireService.updateQuestionnaireResponses($scope.supplier,$scope.buyers,$scope.answers).then(function(resp){
+                $scope.searchButtonText = "Update";
             });
         }
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <uib-tabset vertical="true" type="tab" addclass="nav-stacked  col-md-3">
     <uib-tab ng-repeat="l2 in l1.children track by $index" heading="{{l2.QuestionText__c}}"
              ng-show="l2.children.length">
@@ -10,10 +11,29 @@
                                 <b>{{l3.QuestionText__c}}</b>
                                 <input type="submit" value="submit" class="btn btn-primary"/>
                             </h3>
+=======
+<div>
+    <uib-tabset vertical="true" type="tab" addclass="nav-stacked  col-md-3">
+        <uib-tab ng-repeat="l2 in l1.children track by $index" heading="{{l2.QuestionText__c}}"
+                 ng-show="l2.children.length">
+            <div class="row  col-md-8">
+                <div ng-repeat="l3 in l2.children track by $index" ng-show="l3.children.length">
+                    <form name="{{l3.Id}}" ng-submit="upDateAnswer()">
+                        <div class="panel panel-default" id="questionnaire-panel-data">
+                            <div class="panel-heading">
+                                <b>{{l3.QuestionText__c}}</b>
+                                <button type="submit" class="btn btn-primary" value="Update">
+                            <span ng-show="searchButtonText == 'Updating'"><i
+                                    class="glyphicon glyphicon-refresh spinning"></i></span>
+                                    {{ searchButtonText }}
+                                </button>
+                            </div>
+>>>>>>> pr/9
                         </div>
                         <div class="panel-body">
                             <div class="form-horizontal">
                                 <div class="form-group" ng-repeat="l4 in l3.children track by $index">
+<<<<<<< HEAD
                                     <app-input-text-component ng-if="l4.DataType__c=='text'" question="l4" model="answers[l4.Id]"></app-input-text-component>
                                     <app-input-date-component ng-if="l4.DataType__c=='date'" question="l4" model="answers[l4.Id]"></app-input-date-component>
                                     <app-input-email-component ng-if="l4.DataType__c=='email'" question="l4" model="answers[l4.Id]"></app-input-email-component>
@@ -22,6 +42,24 @@
                                     <app-input-url-component ng-if="l4.DataType__c=='select'" question="l4" model="answers[l4.Id]"></app-input-url-component>
                                     <app-input-number-component ng-if="l4.DataType__c=='number'" question="l4" model="answers[l4.Id]"></app-input-number-component>
                                     <app-input-checkbox-component ng-if="l4.DataType__c=='checkbox'" question="l4" model="answers[l4.Id]"></app-input-checkbox-component>
+=======
+                                    <app-input-text-component ng-if="l4.DataType__c=='text'" question="l4"
+                                                              model="answers[l4.Id]"></app-input-text-component>
+                                    <app-input-date-component ng-if="l4.DataType__c=='date'" question="l4"
+                                                              model="answers[l4.Id]"></app-input-date-component>
+                                    <app-input-email-component ng-if="l4.DataType__c=='email'" question="l4"
+                                                               model="answers[l4.Id]"></app-input-email-component>
+                                    <app-input-url-component ng-if="l4.DataType__c=='url'" question="l4"
+                                                             model="answers[l4.Id]"></app-input-url-component>
+                                    <app-input-url-component ng-if="l4.DataType__c=='textarea'" question="l4"
+                                                             model="answers[l4.Id]"></app-input-url-component>
+                                    <app-input-url-component ng-if="l4.DataType__c=='select'" question="l4"
+                                                             model="answers[l4.Id]"></app-input-url-component>
+                                    <app-input-number-component ng-if="l4.DataType__c=='number'" question="l4"
+                                                                model="answers[l4.Id]"></app-input-number-component>
+                                    <app-input-checkbox-component ng-if="l4.DataType__c=='checkbox'" question="l4"
+                                                                  model="answers[l4.Id]"></app-input-checkbox-component>
+>>>>>>> pr/9
 
                                 </div>
                             </div>
@@ -30,8 +68,17 @@
                 </div>
 
             </div>
+<<<<<<< HEAD
 
         </div>
 
     </uib-tab>
 </uib-tabset>
+=======
+
+</div>
+
+</uib-tab>
+</uib-tabset>
+</div>
+>>>>>>> pr/9

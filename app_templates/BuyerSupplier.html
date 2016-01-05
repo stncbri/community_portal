@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
    <div ng-controller="buyerCtrl" class="row" style="padding-left:65px;padding-right:60px;padding-top:60px" >
      <div class="col-md-12">
@@ -36,3 +37,48 @@
 		   </div>
     </div>
 </div>
+=======
+<h style="color:#0099ff">Suppliers / Suppliers </h>
+<uib-tabset vertical="true" type="tab" addclass="nav-stacked  col-md-3">
+<uib-tab heading="Suppliers">
+	<div ng-controller="buyerCtrl" class="row  col-md-8"  >
+
+       <div class="panel panel-default" id="questionnaire-panel-data">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <b>Suppliers </b>
+                        </h3>
+
+                    </div>
+
+		   <div class="panel-body">
+			    <div class="row">
+						<div class="col-sm-4">
+								 <table class="table">
+									<thead>
+									  <tr>
+										<th><b>Suppliers</b></th>
+										<th>DUNS</th>
+										<th>Invitation Status</th>
+										<th>Level</th>
+										<th>Score</th>
+										<th>Activity</th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr ng-repeat = "supList in supplierList">
+										<td><a href="#/supplier/{{supList.Id}}">{{supList.Name}}</a></td>
+										<td>{{supList.DUNS__c}}</td>
+										<td>{{supList.Status__c}}</td>
+									  </tr>
+									</tbody>
+								  </table>
+						</div>
+
+				</div>
+		   </div>
+    </div>
+</div>
+    </uib-tab>
+</uib-tabset>
+>>>>>>> pr/9
