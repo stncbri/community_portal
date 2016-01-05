@@ -24,10 +24,6 @@ app.factory('sharedObject',['$rootScope', function($rootScope) {  /// Use this o
     sharedObject.get = function(key) {
         return this[key+secret];
     };
-    
-    sharedObject.remove = function(key) {
-    	delete this[key+secret];
-    };
 
     return sharedObject;
 }]);

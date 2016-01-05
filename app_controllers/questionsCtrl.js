@@ -4,27 +4,6 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
 		$scope.user = [];
         $scope.answers = {};
         $scope.user = sharedObject.get('user');
-<<<<<<< HEAD
-        console.log($scope.user);
-        if ($scope.user.isAuthenticated) {
-            if ($scope.user.Profile__c == "supplier") {
-                identityService.fetchBuyerCommunity($scope.user).then(function (resp) {
-                    $scope.buyer = resp;
-                    console.log($scope.buyer);
-                });
-                identityService.fetchSupplierCommunity($scope.user).then(function (resp) {
-                    $scope.supplier = resp;
-                    console.log($scope.supplier);
-                    if ($scope.supplier != null) {
-                        questionnaireService.getAnswerObj($scope.supplier).then(function (resp) {
-                           if (angular.isDefined(resp) && resp.length >= 0) {
-                                        for (var item in resp) {
-                                            $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
-                                        }
-
-                                    }
-                        });
-=======
         $scope.searchButtonText = "Update";
 
 		$scope.supplierID = $routeParams.Id;
@@ -39,7 +18,6 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                             $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
                         }
 
->>>>>>> pr/9
                     }
                 });
             }

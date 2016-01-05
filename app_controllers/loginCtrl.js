@@ -1,12 +1,10 @@
 app.controller('loginCtrl', ['$scope', 'vfr', '$location','identityService','sharedObject' ,'$timeout',function ($scope, vfr, $location,identityService,sharedObject,$timeout) {
-			
             $scope.beforeAuthentication = true;
             $scope.isAuthenticated = false;
             $scope.user = {userid: "walmart-buyer@dnb.com", password: "password"};
             $scope.userResponse = {}
             $scope.loader = {loading: false};
             $scope.login = function () {
-            	sharedObject.remove('questionnaire');
                 $scope.loader = {loading: true};
                 identityService.findUser($scope.user.userid).then(function (v) {
                     $scope.userResponse = v;

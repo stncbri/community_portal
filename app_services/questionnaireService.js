@@ -5,7 +5,7 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
 
         var selectCriteria = '';
         if (level == '1') {
-            selectCriteria = " where RegisteredLevel__c= 1 or QuestionType__c!='Question' "; //TODO will have to fix it later
+            selectCriteria = ' where RegisteredLevel__c= 1';
         } else {
             //get the selector obj.. for now keep it as empty..
         }
@@ -25,22 +25,13 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
         });
     }
 
-<<<<<<< HEAD
-    this.updateQuestionnaireResponses = function (supplier, buyer, answerModel) {
-        
-=======
     this.updateQuestionnaireResponses = function (supplier, buyers, answerModel) {
 
->>>>>>> pr/9
 		 var answerObj = [];
         for (var item in answerModel)
             if (answerModel.hasOwnProperty(item)) {
                 var tmpJson = {
-<<<<<<< HEAD
-                    "Buyer__c": buyer[0].Buyer__c,
-=======
                     "Buyer__c": buyers[0].Buyer__c,
->>>>>>> pr/9
                     "Question__c": item,
                     "ResponseID__c": item + supplier[0].Id,
                     "ResponseText__c": answerModel[item],
