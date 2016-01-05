@@ -21,13 +21,9 @@
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/cpRootCtrl.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/loginCtrl.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/questionsCtrl.js')}"></script>
-<<<<<<< HEAD
-    <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/buyerCtrl.js')}"></script>
-=======
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/formFieldsCtrl.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/buyerCtrl.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/portalCtrl.js')}"></script>
->>>>>>> pr/9
 
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/cpMainService.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_services/loginService.js')}"></script>
