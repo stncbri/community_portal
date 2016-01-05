@@ -6,3 +6,4 @@
 *ant*
 .build*
 build
+node_modules
