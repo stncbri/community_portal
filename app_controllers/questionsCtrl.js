@@ -1,12 +1,15 @@
-app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService', 'identityService', 'sharedObject', '$timeout','$location',
-                                 function($scope, vfr,ngForceConfig,questionnaireService, identityService, sharedObject, $timeout,$location) {
+app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService', 'identityService', 'sharedObject', '$timeout','$location','$routeParams',
+                                 function($scope, vfr,ngForceConfig,questionnaireService, identityService, sharedObject, $timeout,$location,$routeParams) {
 
 		$scope.user = [];
         $scope.answers = {};
         $scope.user = sharedObject.get('user');
         $scope.searchButtonText = "Update";
 
-   $scope.$watch('supplier', function (value) {
+		$scope.supplierID = $routeParams.Id;
+		console.log($scope.supplierID)
+
+   		$scope.$watch('supplier', function (value) {
             $scope.supplier = value;
             if (angular.isDefined($scope.supplier)) {
                 questionnaireService.getAnswerObj($scope.supplier).then(function (resp) {
@@ -19,6 +22,7 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                 });
             }
         });
+
 
         identityService.fetchBuyerCommunity($scope.user).then(function (resp) {
             $scope.buyers = resp;
