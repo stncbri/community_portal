@@ -5,4 +5,4 @@
 *Gruntfile.js
 *ant*
 .build*
-build/**
+build
