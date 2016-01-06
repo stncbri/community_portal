@@ -30,3 +30,37 @@
 .row-fluid ul.thumbnails li.span2:nth-child(6n + 7) { margin-left : 0px;clear:left }
 .row-fluid ul.thumbnails li.span1:nth-child(12n + 13) { margin-left : 0px;clear:left }
 .first-in-row { margin-left: 0 !important; }​
+
+.container-fullw { margin-left: 10px; margin-right: 10px; width: 100%;}
+
+.nav-tabs{
+  background-color:#27346F;
+} 
+
+
+.nav-tabs > li { 
+    border-style: solid;
+    border-color: white;
+    border-radius: 0px;
+    border-width: 0px 1px 0px 0px;
+}
+
+.nav-tabs > li > a{
+  	color: white;
+    font-size: medium;
+    font-weight: 200;
+    margin-right: 0px;    
+}
+.nav-tabs > li > a:hover{
+    background-color: white !important;
+    color:black;
+    border-radius: 0; 
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover{ 
+    border-radius: 0;
+}
+
+ 
+}
