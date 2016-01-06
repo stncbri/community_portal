@@ -56,7 +56,7 @@
 
     <body ng-app="communityPortalApp">
 
-    <div class="container">
+    <div>
         <community-app></community-app>
     </div>
 

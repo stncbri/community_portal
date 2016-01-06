@@ -67,8 +67,8 @@ module.exports = function(grunt) {
             },
             dev2:  {
                 options: {
-                  user: process.env.DEV1USER, // storing my un/pw as env vars for security
-                  pass: process.env.DEV1PASS, // storing my un/pw as env vars for security
+                  user: process.env.DEV2USER, // storing my un/pw as env vars for security
+                  pass: process.env.DEV2PASS, // storing my un/pw as env vars for security
                 },
                 pkg: {
                   staticresource: ['*'],
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
   });
 
   // default task (no deploy)
-  grunt.registerTask('default', ['clean', 'copy' ,'compress' , 'write-meta' ,'antdeploy:dev2', 'clean' ]);
+  grunt.registerTask('default', ['clean', 'copy' ,'compress' , 'write-meta' ,'antdeploy:dev1', 'clean' ]);
 
 
 };
