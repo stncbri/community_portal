@@ -1,4 +1,21 @@
-<div>
+<div class="container-fluid questiontabsmain" >
+	<div class="row"  style="margin-top:5px">
+		<div  class="col-md-3">
+			<ul class="nav  nav-stacked">
+				<li ng-repeat="l2 in model.children track by $index" >  
+	                <a href ng-click="selectSubSection(l2)"> {{l2.QuestionText__c}}</a>
+	             </li> 
+			</ul>
+		</div>
+		<div  class="col-md-9" style="    border-width: 0px 0px 0px 1px;border-style: solid;border-color: #CCC;">
+			<q-sub-section model="selectedSubSection" answers="answers"></q-sub-section>	 
+		</div> 
+	</div>
+	
+</div>
+
+
+<!-- <div>
     <uib-tabset vertical="true" type="tab" addclass="nav-stacked  col-md-3">
         <uib-tab ng-repeat="l2 in l1.children track by $index" heading="{{l2.QuestionText__c}}"
                  ng-show="l2.children.length">
@@ -47,4 +64,4 @@
 
 </uib-tab>
 </uib-tabset>
-</div>
+</div> -->

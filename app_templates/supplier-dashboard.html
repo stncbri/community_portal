@@ -1,7 +1,8 @@
 <div>
-	<uib-tabset> <uib-tab heading="Dashboard">
+	<uib-tabset ng-show="questionnaire"> 
+	<uib-tab heading="Dashboard">
 	<div style="margin-top: 20px;" id="dashboard-container">
-		<div style="padding-left: 20px;padding-right: 20px;">
+		<div style="padding-left: 20px; padding-right: 20px;">
 			<div class="panel panel-default" id="questionnaire-panel-data">
 				<div class="panel-heading">
 					<h3 class="panel-title">
@@ -14,38 +15,26 @@
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 								<li ng-repeat="buyer in buyers track by $index"><a
-									ng-click="publishTo(buyer)">{{buyer.Name}}</a></li> 
+									ng-click="publishTo(buyer)">{{buyer.Name}}</a></li>
 							</ul>
 						</div>
 					</h3>
-
 				</div>
 
 				<div class="apptbody">
 					<table class="table table-bordered" style="margin: 0px;">
-						<tr ng-repeat="l1 in questionnaire"  class="apptr">
-							<td class="info apptd" style="font-size: 15px;font-weight: 300;border-top: 0px;">{{l1.QuestionText__c}}</td>
-							<td class=" apptd" ng-repeat="l2 in l1.children"  style="font-size: 13px;font-weight: 300;border-top: 0px;"><a ng-click="l1.active=true">
-                                        {{l2.QuestionText__c}}</a></td>
+						<tr ng-repeat="l1 in questionnaire" class="apptr">
+							<td class="info apptd"
+								style="font-size: 15px; font-weight: 300; border-top: 0px;">{{l1.QuestionText__c}}</td>
+
+							<td class=" apptd"
+								ng-class="{success: l2.complete, danger: l2.issue, active: !l2.complete|| !l2.issue}"
+								ng-repeat="l2 in l1.children"
+								style="font-size: 13px; font-weight: 300; border-top: 0px;"><a
+								ng-click="l1.active=true"> {{l2.QuestionText__c}}</a></td>
 						</tr>
 					</table>
 				</div>
-				<!--TODO: Populate the status based on the answers.. -->
-				<!-- <uib-accordion close-others="oneAtATime">
-
-                            <uib-accordion-group ng-repeat="l1 in questionnaire">
-                                <uib-accordion-heading>
-                                    {{l1.QuestionText__c}}
-                                    TODO: Make this based on the status of the questionnaire..
-                                </uib-accordion-heading>
-                                <ul class="list-group">
-                                    <li ng-repeat="l2 in l1.children" class="list-group-item"><a
-                                            ng-click="l1.active=true">
-                                        {{l2.QuestionText__c}}</a>
-                                    </li>
-                                </ul>
-                            </uib-accordion-group>
-                        </uib-accordion> -->
 			</div>
 			<div class="col-sm-12">
 				<div class="panel panel-default" id="invitation-summary-panel">
@@ -66,8 +55,9 @@
 			</div>
 		</div>
 	</div>
-	</uib-tab> <uib-tab ng-repeat="l1 in questionnaire track by $index"
-		heading="{{l1.QuestionText__c}}" ng-show="!l1.length"
-		active="l1.active"> <render-questionnaire></render-questionnaire>
-	</uib-tab> </uib-tabset>
+	</uib-tab> 
+	<uib-tab ng-repeat="l1 in questionnaire track by $index" heading="{{l1.QuestionText__c}}" ng-show="!l1.length" active="l1.active"> 
+			<q-section model="l1" answers="answers"></q-section>
+	</uib-tab> 
+	</uib-tabset>
 </div>
