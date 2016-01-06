@@ -62,5 +62,13 @@
     border-radius: 0;
 }
 
- 
+.apptr {
+	border: 1px solid #ddd;
+}
+.apptbody {
+	border: 2px solid whitesmoke;
+}
+.apptd {
+	    border: 1px solid #ddd;
+    background-color: white;
 }
