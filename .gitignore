@@ -5,3 +5,4 @@
 *Gruntfile.js
 *ant*
 .build*
+node_modules/grunt-contrib-compress/node_modules/.bin/pretty-bytes.cmd
