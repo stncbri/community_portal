@@ -4,11 +4,9 @@
 .externalTool*
 *Gruntfile.js
 *ant*
-.build*
-<<<<<<< HEAD
+.build* 
 build
-node_modules
-=======
+node_modules 
 node_modules/
 *.cmd
 *.bat
