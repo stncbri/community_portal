@@ -57,7 +57,7 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="invitation in invitations">
-                                        <td>{{$index}}</td>
+                                        <td>{{$index+1}}</td>
                                         <td>{{invitation.Campaign__r.Buyer__r.Name}}</td>
                                         <td>
                                             <button ng-if="invitation.Status__c == 'Open'" type="submit"
@@ -65,9 +65,9 @@
                                                     ng-click="updateInvitationStatus()">
                                                 Join
                                             </button>
-                                            <button ng-if="invitation.Status__c == 'Open'" class="btn btn-default">
+                                            <p ng-if="invitation.Status__c != 'Open'" class="btn btn-default">
                                                 {{invitation.Status}}
-                                            </button>
+                                            </p>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -82,7 +82,7 @@
         <uib-tab ng-repeat="l1 in questionnaire track by $index"
                  heading="{{l1.QuestionText__c}}" ng-show="!l1.length"
                  active="l1.active">
-            <render-questionnaire></render-questionnaire>
+            <q-section model="l1" answers="answers"></q-section>
         </uib-tab>
     </uib-tabset>
 </div>

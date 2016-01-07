@@ -62,6 +62,17 @@
     border-radius: 0;
 }
 
+.nav-stacked>li {    
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    border-color: #CCC;
+    font-weight: 300;
+}
+
+label{
+	font-weight: 300;
+}
+
 .apptr {
 	border: 1px solid #ddd;
 }
@@ -70,5 +81,13 @@
 }
 .apptd {
 	    border: 1px solid #ddd;
-    background-color: white;
+    	background-color: white;
+}
+
+.questiontabsmain {
+	    border-style: solid;
+    margin: 20px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #CCC;
 }

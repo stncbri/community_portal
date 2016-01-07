@@ -1,11 +1,12 @@
-<button type='button' class='btn btn-default' ng-click='form.$show()' ng-show='!form.$visible'> Edit
-</button>
+<button type='button' class='btn btn-default' ng-click='form.$show()' ng-show='!form.$visible'> Edit</button>
 <span ng-show='form.$visible'>
     <button type='submit'
             class='btn btn-primary'
-            value='Update'><span
-            ng-show="searchButtonText == 'Updating'"><i
-            class='glyphicon glyphicon-refresh spinning'></i></span> {{searchButtonText }}
+            ng-disabled="form.$waiting"
+            value='Update'>
+        <span ng-show="searchButtonText == 'Updating'"><i
+                class='glyphicon glyphicon-refresh spinning'></i></span> {{searchButtonText }}
     </button>
 <button type='button' class='btn btn-default' ng-disabled='form.$waiting' ng-click='form.$cancel()'> Cancel
-</button> </span>
+</button>
+</span>
