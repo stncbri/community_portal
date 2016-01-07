@@ -102,7 +102,7 @@ module.exports = function(grunt) {
   });
 
   // default task (no deploy)
-  grunt.registerTask('default', ['clean', 'copy' ,'compress' , 'write-meta' ,'antdeploy:dev2', 'clean' ]);
+  grunt.registerTask('default', ['clean', 'copy' ,'compress' , 'write-meta' ,'antdeploy:dev1', 'clean' ]);
 
 
 };

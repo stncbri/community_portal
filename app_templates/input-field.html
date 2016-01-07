@@ -1,0 +1,36 @@
+<div class="form-group">
+    <span class="control-label col-sm-6"><b>{{question.QuestionText__c}}</b></span>
+
+
+	    <span editable-text="answers[question.Id]" e-name="{{question.Name}}"
+              onbeforesave="validate($data,question.Validation__c)"
+              e-id="{{question.Id}}"
+              ng-if="question.DataType__c=='text'"
+                >{{ model || 'empty' }}</span>
+
+
+	    <span editable-number="answers[question.Id]" e-name="{{question.Name}}"
+              onbeforesave="validate($data,question.Validation__c)"
+              ng-if="question.DataType__c=='number'">{{ model || 'empty' }}</span>
+
+
+	    <span editable-date="answers[question.Id]" e-name="{{question.Name}}"
+              onbeforesave="validate($data,question.Validation__c)"
+              ng-if="question.DataType__c=='date'">{{ model | date:"dd/MM/yyyy" || 'empty' }}</span>
+
+
+	    <span editable-url="answers[question.Id]" e-name="{{question.Name}}"
+              onbeforesave="validate($data,question.Validation__c)"
+              ng-if="question.DataType__c=='url'">{{ model || 'empty' }}</span>
+
+
+	    <span editable-email="answers[question.Id]" e-name="{{question.Name}}"
+              onbeforesave="validate($data,question.Validation__c)"
+              ng-if="question.DataType__c=='email'">{{ model || 'empty' }}</span>
+
+
+	    <span editable-checkbox="answers[question.Id]" e-name="{{question.Name}}"
+              onbeforesave="validate($data,question.Validation__c)"
+              ng-if="question.DataType__c=='checkbox'">{{ model && 'Yes' || 'No' }}</span>
+
+</div>
