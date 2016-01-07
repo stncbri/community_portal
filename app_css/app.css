@@ -133,3 +133,25 @@
 .nav-tabs {
     margin-bottom: 0;
 }
+
+.padquestions{
+	padding:10px;
+}
+
+span.editable{
+	color:darkblue;
+}
+.placepannelbutton{
+	float: right;
+    bottom: 7px;
+    position: relative;
+}
+
+body{
+	font-weight: 300;
+}
+
+.editable-wrap .editable-controls, .editable-wrap .editable-error{	  
+    margin-left: 0px;
+}
+ 
