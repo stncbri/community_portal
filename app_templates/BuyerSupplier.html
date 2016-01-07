@@ -1,96 +1,96 @@
-<div ng-controller="buyerCtrl"  >
-<div  ng-show="showBuyerSupplier" >
+<div ng-controller="buyerCtrl">
+    <div ng-show="showBuyerSupplier">
 
-<div class="container-fluid questiontabsmain" >
-	<div class="row"  style="margin-top:5px">
-		<div  class="col-md-3">
-			<ul class="nav  nav-stacked">
-				<li >  
-	                <a> Supplier</a>
-	             </li> 
-			</ul>
-		</div>
-		<div  class="col-md-9" style="    border-width: 0px 0px 0px 1px;border-style: solid;border-color: #CCC;">
-			<table class="table">
-									<thead>
-									  <tr>
-										<th><b>Suppliers</b></th>
-										<th>DUNS</th>
-										<th>Invitation Status</th>
-										<th>Level</th>  
-										<th>Score</th>  
-										<th>Activity</th>  
-									  </tr>
-									</thead>
-									<tbody>
-									  <tr ng-repeat = "supList in supplierList">
-										<td>
-										<a ng-click="callsupdetail(supList.Name,supList.DUNS__c)">{{supList.Name}}</a>
-										</td>
-										<td>{{supList.DUNS__c}}</td>
-										<td>{{supList.Status__c}}</td>
-										<td></td>
-										<td></td>
-										<td></td>
-									  </tr>
-									</tbody>
-			</table> 
-		</div> 
-	</div>
-	
-</div>
-   
-</div>	
+        <div class="container-fluid questiontabsmain">
+            <div class="row" style="margin-top:5px">
+                <div class="col-md-3">
+                    <ul class="nav  nav-stacked">
+                        <li>
+                            <a> Supplier</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-9" style="    border-width: 0px 0px 0px 1px;border-style: solid;border-color: #CCC;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th><b>Suppliers</b></th>
+                            <th>DUNS</th>
+                            <th>Invitation Status</th>
+                            <th>Level</th>
+                            <th>Score</th>
+                            <th>Activity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="supList in supplierList">
+                            <td>
+                                <a ng-click="callsupdetail(supList.Name,supList.DUNS__c)">{{supList.Name}}</a>
+                            </td>
+                            <td>{{supList.DUNS__c}}</td>
+                            <td>{{supList.Status__c}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
 
+    <!-- Supplier and questionnaire details page  - Start-->
+    <div ng-show="showBuyerSupplierdetail">
+        <a ng-click="callsupdetail()">Suppliers</a> / {{supplierName}}
 
-<!-- Supplier and questionnaire details page  - Start-->
-<div  ng-show="showBuyerSupplierdetail">
-<a ng-click="callsupdetail()">Suppliers</a> / {{supplierName}}
+        <div class="container-fluid questiontabsmain" style="padding-top:10px">
 
-<div  class="container-fluid questiontabsmain" style="padding-top:10px">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <b>DUNS Number </b>
+                    </h3>
+                </div>
 
-        <div class="panel panel-default" >
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <b>DUNS Number </b>
-                        </h3>                        
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <h3 class="panel-title"> DUNS Number </h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="panel-title"> {{supplierDUNS}} </h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="panel-title"> Supplier </h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="panel-title"> {{supplierName}} </h3>
+                        </div>
+
                     </div>
-        
-		   <div class="panel-body">
-			    <div class="row">  
-						<div class="col-sm-2">
-							<h3 class="panel-title"> DUNS Number  </h3>
-                    	</div>   
-                    	<div class="col-sm-2">
-                            <h3 class="panel-title"> {{supplierDUNS}}  </h3>
-                    	</div>    
-                    	<div class="col-sm-2">    
-                    		<h3 class="panel-title"> Supplier  </h3>
-                    	</div>
-                    	<div class="col-sm-2">
-                            <h3 class="panel-title"> {{supplierName}}  </h3>
-						</div>
-				
-				</div>               
-		   </div>
-		</div>
+                </div>
+            </div>
 
-	<div ng-controller="questionsCtrl" >
-		<div class="row"  style="margin-top:5px">
-			<div  class="col-md-12">
-				<uib-tabset>
-			<uib-tab ng-repeat="l1 in questionnaire track by $index"
-				heading="{{l1.QuestionText__c}}" ng-show="!l1.length"
-				active="l1.active"> <render-questionnaire></render-questionnaire>
-			</uib-tab>	
-			</uib-tabset>	
-			</div>
-		</div>
-	</div>
-</div>
-</div>
+            <div ng-controller="questionsCtrl">
+                <div class="row" style="margin-top:5px">
+                    <div class="col-md-12">
+                        <uib-tabset>
+                            <uib-tab ng-repeat="l1 in questionnaire track by $index"
+                                     heading="{{l1.QuestionText__c}}" ng-show="!l1.length"
+                                     active="l1.active">
+                                <q-section model="l1" answers="answers"></q-section>
+                            </uib-tab>
+                        </uib-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- Supplier and questionnaire details page  - End-->
+    <!-- Supplier and questionnaire details page  - End-->
 </div>
 
