@@ -39,8 +39,8 @@ app.service('identityService', ['vfr', function (vfr) {
     }
 
 	/*[{"attributes":{"type":"Invitation__c","url":"/services/data/v35.0/sobjects/Invitation__c/a0928000007I2rzAAC"},"Campaign__c":"a0828000007JAsLAAW","Id":"a0928000007I2rzAAC","Name":"INV-0002","Status__c":"Accepted","Supplier__c":"a012800000FVRbPAAX","Campaign__r":{"attributes":{"type":"Campaign__c","url":"/services/data/v35.0/sobjects/Campaign__c/a0828000007JAsLAAW"},"Buyer__c":"a012800000FVRbPAAX","Id":"a0828000007JAsLAAW","Buyer__r":{"attributes":{"type":"Community__c","url":"/services/data/v35.0/sobjects/Community__c/a012800000FVRbPAAX"},"Name":"Walmart","Id":"a012800000FVRbPAAX"}}},{"attributes":{"type":"Invitation__c","url":"/services/data/v35.0/sobjects/Invitation__c/a0928000006fcFmAAI"},"Campaign__c":"a0828000007JAsLAAW","Id":"a0928000006fcFmAAI","Name":"INV-0001","Status__c":"Open","Supplier__c":"a012800000FVRbxAAH","Campaign__r":{"attributes":{"type":"Campaign__c","url":"/services/data/v35.0/sobjects/Campaign__c/a0828000007JAsLAAW"},"Buyer__c":"a012800000FVRbPAAX","Id":"a0828000007JAsLAAW","Buyer__r":{"attributes":{"type":"Community__c","url":"/services/data/v35.0/sobjects/Community__c/a012800000FVRbPAAX"},"Name":"Walmart","Id":"a012800000FVRbPAAX"}}}]*/
-    this.fetchInvitationList = function (user) {
-        var lookupQuery = vfr.query("SELECT Campaign__r.Buyer__c,Id,Name,Notes__c,Status__c,Supplier__c FROM Invitation__c where supplier__r.CommunityUser__r.Name='" + user.Name + "'");
+    this.fetchInvitationList = function (supplier) {
+        var lookupQuery = vfr.query("SELECT Campaign__r.Buyer__r.Name,Campaign__r.Buyer__r.Id,Notes__c,Status__c FROM Invitation__c where supplier__r.Id='" + supplier.Id + "'");
         return lookupQuery.then(function (response) {
             return response.records;
         });
