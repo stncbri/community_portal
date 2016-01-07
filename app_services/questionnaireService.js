@@ -18,20 +18,24 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
 
     this.getAnswerObj = function(supplier){
         var query = vfr.query("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from Supplierresponse__c where supplier__c='" + supplier[0].Id+"'");
-		console.log(query);
         return query.then(function (response) {
-			console.log(response);
             return response.records;
         });
     }
 
-    this.updateQuestionnaireResponses = function (supplier, buyers, answerModel) {
+    this.getInvitations = function(supplier){
+        var query = vfr.query("SELECT Campaign__r.Buyer__r.Id,Campaign__r.Buyer__r.Name,Notes__c,Status__c FROM Invitation__c where supplier__r.Id='" + supplier[0].Id+"'");
+        return query.then(function (response) {
+            return response.records;
+        });
+    }
 
-		 var answerObj = [];
+    this.updateQuestionnaireResponses = function (supplier, answerModel) {
+	 var answerObj = [];
         for (var item in answerModel)
             if (answerModel.hasOwnProperty(item)) {
                 var tmpJson = {
-                    "Buyer__c": buyers[0].Buyer__c,
+                    //"Buyer__c": buyers[0].Buyer__c,
                     "Question__c": item,
                     "ResponseID__c": item + supplier[0].Id,
                     "ResponseText__c": answerModel[item],
@@ -39,17 +43,25 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
                 }
                 answerObj.push(tmpJson);
             }
-		console.log(answerObj);
         return vfr.updateResponse(angular.toJson(answerObj));
     }
 
 
-    this.convertQustRsptoAnswerModel = function (questionResponse) {
-        answerModel = [];
-        for (var i = 0; i < questionResponse.length, i++;) {
-            answerModel[questionResponse.Id] = questionResponse.ResponseText__c;
-        }
-        return answerModel;
+    this.publish = function(supplier,buyerId,answerModel){
+        var answerObj = [];
+        for (var item in answerModel)
+            if (answerModel.hasOwnProperty(item)) {
+                var tmpJson = {
+                    "Buyer__c": buyerId,
+                    "Question__c": item,
+                    "ResponseID__c": item + buyerId+supplier[0].Id,
+                    "ResponseText__c": answerModel[item],
+                    "Supplier__c": supplier[0].Id,
+                    "Status__c": "published"
+                }
+                answerObj.push(tmpJson);
+            }
+        return vfr.publishResponse(angular.toJson(answerObj));
     }
 
 }]);

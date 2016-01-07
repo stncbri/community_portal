@@ -4,7 +4,17 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
 		$scope.user = [];
         $scope.answers = {};
         $scope.user = sharedObject.get('user');
-        console.log($scope.user);
+        
+	
+	$scope.showBuyerSupplier = true;
+	$scope.showBuyerSupplierdetail = false;
+		$scope.callsupdetail = function(supName,supDUNS){				// Supplier details page display condition
+		$scope.showBuyerSupplier = !$scope.showBuyerSupplier;
+		$scope.showBuyerSupplierdetail =  !$scope.showBuyerSupplierdetail;
+		$scope.supplierName = supName;
+		$scope.supplierDUNS = supDUNS;		
+		};
+		
 		
 	buyerService.getCommunity().then(function (c) {
                 $scope.communities = c;
@@ -41,7 +51,7 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
                      $scope.level3Cnt = lvl3;
       }); 
        
-      buyerService.getInvitaions().then(function (invRes) {
+      buyerService.getInvitations().then(function (invRes) {
               $scope.invitaions = invRes;
        		$scope.invitaionCount = invRes.length;
       });

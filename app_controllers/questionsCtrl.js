@@ -1,25 +1,32 @@
-app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService', 'identityService', 
-                                 'sharedObject', '$timeout','$location','$routeParams', '$rootScope',
-                                 function($scope, vfr,ngForceConfig,questionnaireService, identityService, 
-                                		 sharedObject, $timeout,$location,$routeParams, $rootScope) {
+app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService', 'identityService',
+    'sharedObject', '$timeout', '$location', '$routeParams', '$rootScope',
+    function ($scope, vfr, ngForceConfig, questionnaireService, identityService,
+              sharedObject, $timeout, $location, $routeParams, $rootScope) { 
 
-		$scope.user = [];
+        $scope.user = [];
         $scope.answers = {};
         $scope.user = sharedObject.get('user');
         $scope.searchButtonText = "Update";
-
-		$scope.supplierID = $routeParams.Id;
-		console.log($scope.supplierID)
-
-   		$scope.$watch('supplier', function (value) {
+        $scope.publishButtonText = "Authorize and Publish";
+        $scope.supplierID = $routeParams.Id;
+        $scope.showDashBoard = true;
+        $scope.$watch('supplier', function (value) {
             $scope.supplier = value;
             if (angular.isDefined($scope.supplier)) {
+
+                // If valid Supplier - fetch the answers..
                 questionnaireService.getAnswerObj($scope.supplier).then(function (resp) {
                     if (angular.isDefined(resp) && resp.length >= 0) {
                         for (var item in resp) {
                             $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
                         }
+                    }
+                });
 
+                // Then fetch the Invitations
+                questionnaireService.getInvitations($scope.supplier).then(function (resp) {
+                    if (angular.isDefined(resp) && resp.length >= 0) {
+                        $scope.invitations = resp;
                     }
                 });
             }
@@ -30,28 +37,28 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
             $scope.buyers = resp;
         });
 
-
-
         questionnaireService.getQuestionnaire($scope.user).then(function (d) {
             $scope.questions = d;
             $scope.questionnaire = $scope.makeQuestionTree();
         });
 
-
-        $scope.publishTo = function (buyer){
-
-
-        }
-
-        $scope.$on('UpdateAnswers', function(args) {
-        	 questionnaireService.updateQuestionnaireResponses($scope.supplier,$scope.buyers,$scope.answers).then(function(resp){
-        		 $rootScope.$broadcast("AnswersUpdated",[]);
-             });
-	    });
-        
+        $scope.publishTo = function (buyerId) {
+            $scope.publishButtonText = "Updating...";
+            questionnaireService.publish($scope.supplier, buyerId, $scope.answers).then(function (resp) {
+                if (angular.isDefined(resp)) {
+                    $scope.publishButtonText = "Authorize and Publish";
+                }
+            });
+        } 
+        $scope.$on('UpdateAnswers', function (args) {
+            questionnaireService.updateQuestionnaireResponses($scope.supplier, $scope.answers).then(function (resp) {
+                $rootScope.$broadcast("AnswersUpdated", []);
+            });
+        });
+ 
         $scope.upDateAnswer = function () {
             $scope.searchButtonText = "Updating";
-            questionnaireService.updateQuestionnaireResponses($scope.supplier,$scope.buyers,$scope.answers).then(function(resp){
+            questionnaireService.updateQuestionnaireResponses($scope.supplier,  $scope.answers).then(function (resp) {
                 $scope.searchButtonText = "Update";
             });
         }
@@ -90,15 +97,14 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                 q.children = [];
                 var found = {parent: false, child: false};
 
-	    	findintree(tree,q,found);
-	    	if(!found.child && !found.parent){
-	    		tree.push(q);
-	    	}
-		}
+                findintree(tree, q, found);
+                if (!found.child && !found.parent) {
+                    tree.push(q);
+                }
+            }
 
-		return tree;
-	};
-
+            return tree;
+        };
 
 
     }]);

@@ -5,5 +5,11 @@
 *Gruntfile.js
 *ant*
 .build*
+<<<<<<< HEAD
 build
 node_modules
+=======
+node_modules/
+*.cmd
+*.bat
+>>>>>>> cdb3c2c736c56069ecac3e5cda2ade1acafff5a0

@@ -33,7 +33,7 @@ app.service('buyerService', [ 'vfr',  function ( vfr){
 		}
 		
 		// To hetch the invitaion details
-		this.getInvitaions = function () {
+		this.getInvitations = function () {
             var invitaionQuery = vfr.query("SELECT Campaign__c,Id,Name,Notes__c,Status__c,Supplier__c FROM Invitation__c");
             return invitaionQuery.then(function (response) {
                 return response.records;
