@@ -1,22 +1,43 @@
 app.service('identityService', ['vfr', function (vfr) {
-    this.findUser = function (uid) {
-        var userlookupQuery = vfr.query("select Name, password__c,Profile__c,RegisteredLevel__c from user__c where name='" + uid + "'");
+
+	
+	this.findUser = function (uid,ps) {
+        var userlookupQuery = vfr.query("select  Name, password__c, Email__c,  Id , " +
+        		"CommunityAccount__r.Level__c, CommunityAccount__r.AccountInfo__c, " +
+        		"CommunityAccount__r.AccountProfileType__c, CommunityAccount__r.Community__c," +
+        		"CommunityAccount__r.Community__r.Size__c, " +
+        		"CommunityAccount__r.Community__r.Name, CommunityAccount__r.Community__r.Id, " +
+        		"CommunityAccount__r.Community__r.Industry__c, " +
+        		"CommunityAccount__r.Community__r.DUNS__c, CommunityAccount__r.Community__r.Adddress__c " +
+        		"from User__c where name='" + uid + "'    " );
         return userlookupQuery.then(function (response) {
             return response.records;
         });
 
     }
+	
+	///////////////////////////////////////
+	
+	
+//  this.findUser = function (uid) {
+//  var userlookupQuery = vfr.query("select Name, password__c,Profile__c,RegisteredLevel__c from user__c where name='" + uid + "'");
+//  return userlookupQuery.then(function (response) {
+//      return response.records;
+//  });
+//
+//}
+	
     /*Fetch the Supplier Community*/
     /*[{"attributes":{"type":"Community__c","url":"/services/data/v35.0/sobjects/Community__c/a012800000FVRbxAAH"},"Name":"Walmart-Supplier-2","Id":"a012800000FVRbxAAH","Industry__c":"Furniture","DUNS__c":13608064,"CommunityUser__c":"a0C2800000201AoEAI"}]*/
     this.fetchSupplierCommunity = function (user) {
-        var lookupQuery = vfr.query("select Name, Id, Size__c,Industry__c,email__c,DUNS__c,Adddress__c from Community__c where CommunityUser__r.Name='" + user.Name + "'");
+        var lookupQuery = vfr.query("select Name, Id, Size__c,Industry__c,DUNS__c,Adddress__c from Community__c where CommunityUser__r.Name='" + user.Name + "'");
         return lookupQuery.then(function (response) {
             return response.records;
         });
     }
 
 	this.fetchSupplierCommunityfromId = function (Id) {
-        var lookupQuery = vfr.query("select Name, Id, Size__c,Industry__c,email__c,DUNS__c,Adddress__c from Community__c where Id='" + Id + "'");
+        var lookupQuery = vfr.query("select Name, Id, Size__c,Industry__c,DUNS__c,Adddress__c from Community__c where Id='" + Id + "'");
         return lookupQuery.then(function (response) {
             return response.records;
         });

@@ -1,9 +1,6 @@
     
     
     <div ng-controller="buyerCtrl" class="row" style="padding-left:65px;padding-right:60px;padding-top:30px" id="dashboard-container">
-		    <div class="page-heading">
-        <h3 style="text-align: center">Buyer Dashboard</h3>
-    </div>
          <div class="col-md-12">
 
            <div class="panel panel-default" id="questionnaire-panel-data">
@@ -20,32 +17,26 @@
                                 <thead>
                                   <tr>
                                     <th><b>Tier-1 Suppliers</b></th>
-                                    <th>{{tier1Count}}</th>
+                                    <th>{{tierDetails.countAll}}</th>
                                   </tr>
                                 </thead>
                                 <tbody>
+                                  <tr>
+                                    <td>Unregisteres</td>
+                                    <td>{{tierDetails.countAll-tierDetails.countRegisSupp}}</td>
+                                  </tr>
                                    <tr>
                                     <td>Level 1 </td>
-                                    <td>{{level1Cnt}}</td>
+                                    <td>{{tierDetails.countL1Supp}}</td>
                                   </tr>
 
                                   <tr>
-                                    <td>Level 2 (Verified) </td>
-                                    <td>{{level2Cnt}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Level 2 (Not Verified)</td>
-                                    <td>{{leve21Cnt}}</td>
-
-                                  </tr>
-                                  <tr>
-                                    <td>Level 3</td>
-                                    <td>{{level3Cnt}}</td>
-
-                                  </tr>
+                                    <td>Level 2 </td>
+                                    <td>{{tierDetails.countL2Supp}}</td>
+                                  </tr> 
                                     <tr>
                                         <td>Diversity Spend</td>
-                                        <td>{{tier1Count}}</td>
+                                        <td>N/I</td>
                                     </tr>
                                 </tbody>
                               </table>

@@ -4,28 +4,50 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
 		$scope.user = [];
         $scope.answers = {};
         $scope.user = sharedObject.get('user');
-        
+        $scope.tierDetails={};
+        $scope.suppliers=[];
 	
-	$scope.showBuyerSupplier = true;
-	$scope.showBuyerSupplierdetail = false;
-		$scope.callsupdetail = function(supName,supDUNS){				// Supplier details page display condition
-		$scope.showBuyerSupplier = !$scope.showBuyerSupplier;
-		$scope.showBuyerSupplierdetail =  !$scope.showBuyerSupplierdetail;
-		$scope.supplierName = supName;
-		$scope.supplierDUNS = supDUNS;		
-		};
+        
 		
-		
-	buyerService.getCommunity().then(function (c) {
-                $scope.communities = c;
-        		$scope.tier1Count = c.length;
+		buyerService.getSuppliers($scope.user.CommunityAccount__r.Community__r.Id).then(function (c) {
+                $scope.suppliers = c; 
                 if (!$scope.$$phase) {
                     $scope.$digest();
                 }
-            });                                    
+        });                                    
+        
+		$scope.$watch('suppliers', function (newvalue,oldvalue) {
+			$scope.tierDetails.countAll=$scope.suppliers.length;
+			$scope.tierDetails.countRegisSupp=0;
+	        $scope.tierDetails.countL1Supp=0;
+	        $scope.tierDetails.countL2Supp=0;
+			for (var i = 0; i < $scope.suppliers.length; i++) {
+				var sup= $scope.suppliers[i];
+				if(sup.Supplier__r.CommunityAccount__r){
+					$scope.tierDetails.countRegisSupp++;
+					if(sup.Supplier__r.CommunityAccount__r.Level__c==1)
+					$scope.tierDetails.countL1Supp++;
+					else if(sup.Supplier__r.CommunityAccount__r.Level__c==2)
+						$scope.tierDetails.countL2Supp++;
+				}
+			}
+        }); 
+		
+		
+		
+
+		$scope.showBuyerSupplier = true;
+		$scope.showBuyerSupplierdetail = false;
+		$scope.callsupdetail = function(supName,supDUNS){				// Supplier details page display condition
+			$scope.showBuyerSupplier = !$scope.showBuyerSupplier;
+			$scope.showBuyerSupplierdetail =  !$scope.showBuyerSupplierdetail;
+			$scope.supplierName = supName;
+			$scope.supplierDUNS = supDUNS;		
+		};
+		
+		
                                     
-                                    
-      buyerService.getCommunityUser().then(function (cu) {            
+		buyerService.getCommunityUser().then(function (cu) {            
          $scope.communities = cu;
                      var usrList =$scope.communities;
                      

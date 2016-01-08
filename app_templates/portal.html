@@ -1,10 +1,10 @@
 <div class="container-fullw"  width: 100%;">
     <div >
         <div ng-controller="portalCtrl">
-            <div ng-if="user.Profile__c == 'supplier'">
-                <show-supplier-dashboard supplier="supplier"></show-supplier-dashboard>
+            <div ng-if="user.CommunityAccount__r.AccountProfileType__c == 'Supplier'">
+                <show-supplier-dashboard supplier="member"></show-supplier-dashboard>
             </div>
-            <div ng-if="user.Profile__c == 'buyer'">
+            <div ng-if="user.CommunityAccount__r.AccountProfileType__c == 'Buyer'">
             <uib-tabset type="tabs">
                 <uib-tab heading="Dashboard">
                         <show-buyer-dashboard></show-buyer-dashboard>
