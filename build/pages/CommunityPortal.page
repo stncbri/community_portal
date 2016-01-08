@@ -1,11 +1,13 @@
-<apex:page docType="html-5.0" showHeader="false" standardstylesheets="false" sidebar="false"  controller="ngForceController">
- 
-<!-- Css -->
+<apex:page docType="html-5.0" showHeader="false" standardstylesheets="false" sidebar="false"
+           controller="ngForceController">
+
+    <!-- Css -->
     <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'bootstrap/css/bootstrap.min.css')}"/>
     <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'ngForce/css/bootstrap-custom.css')}"/>
-    <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'app_css/app.css')}"/> 
+    <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'app_css/app.css')}"/>
     <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'bower_components/ngprogress/ngProgress.css')}"/>
-    <apex:stylesheet value="{!URLFOR($Resource.CommunityPortal, 'bower_components/angular-xeditable/dist/css/xeditable.css')}"/>
+    <apex:stylesheet
+            value="{!URLFOR($Resource.CommunityPortal, 'bower_components/angular-xeditable/dist/css/xeditable.css')}"/>
 
     <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/angular.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'ngForce/js/jquery-2.0.0.min.js')}"></script>
@@ -18,7 +20,7 @@
     <script src="{!URLFOR($Resource.CommunityPortal, 'bower_components/ngprogress/build/ngprogress.min.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'bower_components/angular-xeditable/dist/js/xeditable.min.js')}"></script>
 
-        
+
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_js/app.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/cpRootCtrl.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_controllers/loginCtrl.js')}"></script>
@@ -36,14 +38,14 @@
 
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/communityapp.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/showBuyerDashboard.js')}"></script>
-    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/renderQuestionnaire.js')}"></script>
- <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/qSection.js')}"></script>
+
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/qSection.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/qSubSection.js')}"></script>
-    
+
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/showSupplierDashboard.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/inputForm.js')}"></script>
-    	<script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/showBuyerSupplier.js')}"></script>
-    
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/showBuyerSupplier.js')}"></script>
+
     <script>
         (function (angular) {
 

@@ -2,7 +2,7 @@ app.directive("inputForm", function (ngForceConfig) {
     return {
         templateUrl: ngForceConfig.resourceUrl + '/app_templates/input-field.html',
         scope: {
-            model: '=',
+        	answers: '=',
             question: '='
         }, link: function (scope, elem, attr) {
             if (scope.question.DataType__c == 'date' && angular.isDefined(scope.model)) {

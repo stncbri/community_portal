@@ -1,22 +1,24 @@
 <!-- <div style="border-style:solid;height:200px;width:100%"></div> -->
-<div>
+<div> 
     <div ng-repeat="l3 in model.children track by $index"
          ng-show="l3.children.length">
         <form editable-form name="{{l3.Id}}" onaftersave="upDateAnswer()">
             <div class="panel panel-default" id="questionnaire-panel-data">
                 <div class="panel-heading">
-                    <b>{{l3.QuestionText__c}}</b>
+                    <span style="font-size: 15px;font-weight: 400;">{{l3.QuestionText__c}}</span>
+                    <div class="placepannelbutton">
+                    	<show-edit-control></show-edit-control>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <div class="form-group"
-                             ng-repeat="l4 in l3.children track by $index">
-                            <input-form question="l4" model="answers[l4.Id]"></input-form>
-                        </div>
-                    </div>
-                    <show-edit-control></show-edit-control>
+                        <div  ng-repeat="l4 in l3.children track by $index" >
+                            	<input-form question="l4" answers="answers"></input-form>
+                            	<!-- <do not bind anything to a primitive data type> -->
+                        </div> 
+                    </div>                    
                 </div>
             </div>
         </form>
-    </div>
+    </div> 
 </div>
