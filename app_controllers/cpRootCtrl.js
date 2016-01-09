@@ -4,9 +4,5 @@ app.controller('cpRoot', ['$scope','sharedObject' ,'ngForceConfig', function ($s
 	sharedObject.addListner('user');
 	 $scope.$on('userChanged', function() {
 	        $scope.user = sharedObject.get('user');
-	    });
-	 
-	 $scope.resolveURL= function(key) {
-	        return ngForceConfig.resourceUrl+key;
-	    };
+	    }); 
 }]);

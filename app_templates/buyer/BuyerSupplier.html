@@ -1,4 +1,4 @@
-<div ng-controller="buyerCtrl">
+<div  >
     <div ng-show="showBuyerSupplier">
 
         <div class="container-fluid questiontabsmain">
@@ -6,7 +6,7 @@
                 <div class="col-md-3">
                     <ul class="nav  nav-stacked">
                         <li>
-                            <a> Supplier</a>
+                            <a>Suppliers</a>
                         </li>
                     </ul>
                 </div>
@@ -23,15 +23,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="supList in supplierList">
+                        <tr ng-repeat="supplier in suppliers">
                             <td>
-                                <a ng-click="callsupdetail(supList.Name,supList.DUNS__c)">{{supList.Name}}</a>
+                                <a ng-click="callsupdetail(supplier.Supplier__r.Name,supplier.Supplier__r.DUNS__c)">{{supplier.Supplier__r.Name}}</a>
                             </td>
-                            <td>{{supList.DUNS__c}}</td>
-                            <td>{{supList.Status__c}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{supplier.Supplier__r.DUNS__c}}</td>
+                            <td>N/I</td>
+                            <td>{{supplier.Supplier__r.CommunityAccount__r.Level__c}}</td>
+                            <td>Not Rated N/I</td>
+                            <td>N/I</td>
                         </tr>
                         </tbody>
                     </table>
