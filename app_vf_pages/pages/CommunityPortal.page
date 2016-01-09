@@ -38,7 +38,7 @@
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/buyerApp.js')}"></script> 
  	<script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/qSection.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/qSubSection.js')}"></script>     
-    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/showSupplierDashboard.js')}"></script>
+    <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/supplierApp.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/inputForm.js')}"></script>
     <script src="{!URLFOR($Resource.CommunityPortal, 'app_directives/showBuyerSupplier.js')}"></script>
     

@@ -13,6 +13,16 @@ app.service('buyerService', [ 'vfr',  function ( vfr){
             });
         }
 
+        this.getInvitations = function (buyerId) {
+            var invitaionQuery = vfr.query("select Campaign__r.Name , Campaign__r.Status__c ," +
+            		"CreatedDate, Id, LastModifiedDate, Name, Notes__c, Status__c, " +
+            		" Supplier__c , Supplier__r.CommunityAccount__c from Invitation__c   where Campaign__r.Buyer__r.id='"+buyerId+"'");
+            return invitaionQuery.then(function (response) {
+                return response.records;
+            });
+         }
+        
+        
         ////////////////////////////
         this.getCommunity = function () {
             var communityQuery = vfr.query("SELECT Supplier__c FROM CommunityLinkage__c WHERE Buyer__c = 'a012800000FVRbPAAX'");
@@ -46,12 +56,7 @@ app.service('buyerService', [ 'vfr',  function ( vfr){
 		}
 		
 		// To hetch the invitaion details
-		this.getInvitations = function () {
-            var invitaionQuery = vfr.query("SELECT Campaign__c,Id,Name,Notes__c,Status__c,Supplier__c FROM Invitation__c");
-            return invitaionQuery.then(function (response) {
-                return response.records;
-            });
-         }
+		
          
 		 this.getSupplierInvitaion = function (supp) {
             var supInvitaionQuery = vfr.query("SELECT Campaign__c,Id,Name,Notes__c,Status__c,Supplier__c FROM Invitation__c where supplier__r.CommunityUser__r.Name='" + supp.Name + "'");			

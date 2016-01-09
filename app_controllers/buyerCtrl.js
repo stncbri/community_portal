@@ -5,6 +5,7 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
         $scope.answers = {};
         $scope.user = sharedObject.get('user');
         $scope.tierDetails={};
+        $scope.inviteDetails={};
         $scope.suppliers=[];
 	
         
@@ -21,7 +22,7 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
 			$scope.tierDetails.countRegisSupp=0;
 	        $scope.tierDetails.countL1Supp=0;
 	        $scope.tierDetails.countL2Supp=0;
-			for (var i = 0; i < $scope.suppliers.length; i++) {
+			for (var i = 0; i < $scope.suppliers.length; i++) {//TODO will get these counts from queries in the future
 				var sup= $scope.suppliers[i];
 				if(sup.Supplier__r.CommunityAccount__r){
 					$scope.tierDetails.countRegisSupp++;
@@ -33,8 +34,26 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
 			}
         }); 
 		
+		buyerService.getInvitations($scope.buyer.Id).then(function (invRes) {
+            $scope.invitaions = invRes;
+     		$scope.inviteDetails.countAll=$scope.invitaions.length;
+			$scope.inviteDetails.countRegisSupp=0;
+	        $scope.inviteDetails.countRejected=0;
+	        $scope.inviteDetails.countOpened=0;
+			for (var i = 0; i < $scope.invitaions.length; i++) { //TODO will get these counts from queries in the future
+				var invite= $scope.invitaions[i];
+				if(invite.Supplier__r.CommunityAccount__c){
+					$scope.inviteDetails.countRegisSupp++;
+					if(invite.Status__c=='Open')
+						$scope.inviteDetails.countOpened++;
+					else if(invite.Status__c=='Bounced')
+						$scope.inviteDetails.countRejected++;
+				}
+			}
+		});
 		
 		
+		////////////////////////////////////////////////////////
 
 		$scope.showBuyerSupplier = true;
 		$scope.showBuyerSupplierdetail = false;

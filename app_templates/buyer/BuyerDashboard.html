@@ -114,32 +114,32 @@
                             <div class="col-sm-2">
                                 <div class="panel panel-primary">
                                   <div class="panel-heading"><b>Invited</b></div>
-                                  <div class="panel-body">N/I</div>
+                                  <div class="panel-body">{{inviteDetails.countAll}}</div>
 
                                 </div>
                             </div>
                              <div class="col-sm-2">
                                 <div class="panel panel-info">
                                   <div class="panel-heading"><b>Opened</b></div>
-                                  <div class="panel-body">N/I</div>
+                                  <div class="panel-body">{{inviteDetails.countOpened}}</div>
                                 </div>
                             </div>
                              <div class="col-sm-2">
                                 <div class="panel panel-success">
                                   <div class="panel-heading"><b>Registered</b></div>
-                                  <div class="panel-body">N/I</div>
+                                  <div class="panel-body">{{inviteDetails.countRegisSupp}}</div>
                                 </div>
                             </div>
                              <div class="col-sm-2">
                                 <div class="panel panel-warning">
                                   <div class="panel-heading"><b>Not Registered</b></div>
-                                  <div class="panel-body">N/I</div>
+                                  <div class="panel-body">{{inviteDetails.countAll-inviteDetails.countRegisSupp}}</div>
                                 </div>
                             </div>
                              <div class="col-sm-2">
                                 <div class="panel panel-danger">
                                   <div class="panel-heading"><b>Rejected</b></div>
-                                  <div class="panel-body">N/I</div>
+                                  <div class="panel-body">{{inviteDetails.countRejected}}</div>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 <div  >
     <div ng-show="showBuyerSupplier">
-
+	
+	
         <div class="container-fluid questiontabsmain">
             <div class="row" style="margin-top:5px">
                 <div class="col-md-3">
@@ -29,7 +30,7 @@
                             </td>
                             <td>{{supplier.Supplier__r.DUNS__c}}</td>
                             <td>N/I</td>
-                            <td>{{supplier.Supplier__r.CommunityAccount__r.Level__c}}</td>
+                            <td>{{supplier.Supplier__r.CommunityAccount__r ? supplier.Supplier__r.CommunityAccount__r.Level__c: 'Not Registered'}}</td>
                             <td>Not Rated N/I</td>
                             <td>N/I</td>
                         </tr>
