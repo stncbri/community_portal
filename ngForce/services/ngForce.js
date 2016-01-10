@@ -375,6 +375,20 @@ angular.module('ngForce', [], function($provide) {
 			});
 			return deferred.promise();
 		};
+		
+		
+		
+		vfRemote.bulkUpsert = function(objtype, externalIdField, externalId, fields, callback, error) {
+			var deferred = $.Deferred();
+			Visualforce.remoting.Manager.invokeAction('ngForceController.bulkUpsert', objtype,JSON.stringify(fields), 
+					externalIdField, externalId, function(result) {
+				handleResult(result, callback, error, true, deferred);
+			}, {
+				escape: false
+			});
+			return deferred.promise();
+		};
+		
 
 		return vfRemote;
 	});

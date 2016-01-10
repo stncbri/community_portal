@@ -1,3 +1,8 @@
+.tablerowselected {
+    background-color:#E2E2E2;
+    font-weight:400;
+}
+
 .sidebar-nav {
     padding: 9px 0;
 }

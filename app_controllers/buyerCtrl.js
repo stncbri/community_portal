@@ -7,8 +7,9 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
         $scope.tierDetails={};
         $scope.inviteDetails={};
         $scope.suppliers=[];
-	
-        
+        $scope.invitaions = [];
+        $scope.invitaionsMap = {};
+        $scope.inviteButtonText="Invite Suppliers";
 		
 		buyerService.getSuppliers($scope.user.CommunityAccount__r.Community__r.Id).then(function (c) {
                 $scope.suppliers = c; 
@@ -34,24 +35,67 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
 			}
         }); 
 		
-		buyerService.getInvitations($scope.buyer.Id).then(function (invRes) {
-            $scope.invitaions = invRes;
-     		$scope.inviteDetails.countAll=$scope.invitaions.length;
-			$scope.inviteDetails.countRegisSupp=0;
-	        $scope.inviteDetails.countRejected=0;
-	        $scope.inviteDetails.countOpened=0;
-			for (var i = 0; i < $scope.invitaions.length; i++) { //TODO will get these counts from queries in the future
-				var invite= $scope.invitaions[i];
-				if(invite.Supplier__r.CommunityAccount__c){
-					$scope.inviteDetails.countRegisSupp++;
-					if(invite.Status__c=='Open')
-						$scope.inviteDetails.countOpened++;
-					else if(invite.Status__c=='Bounced')
-						$scope.inviteDetails.countRejected++;
+		$scope.showInvitations=function(invites){
+			buyerService.getInvitations($scope.buyer.Id).then(function (invites) {
+				$scope.invitaions = invites;
+	     		$scope.inviteDetails.countAll=$scope.invitaions.length;
+				$scope.inviteDetails.countRegisSupp=0;
+		        $scope.inviteDetails.countRejected=0;
+		        $scope.inviteDetails.countOpened=0;
+				for (var i = 0; i < $scope.invitaions.length; i++) { //TODO will get these counts from queries in the future
+					var invite= $scope.invitaions[i];
+					$scope.invitaionsMap[invite.Supplier__c]=invite;
+					if(invite.Supplier__r.CommunityAccount__c){
+						$scope.inviteDetails.countRegisSupp++;
+						if(invite.Status__c=='Open')
+							$scope.inviteDetails.countOpened++;
+						else if(invite.Status__c=='Bounced')
+							$scope.inviteDetails.countRejected++;
+					}
 				}
-			}
-		});
+				$scope.inviteButtonText="Invite Suppliers";
+				$scope.$apply();
+			});
+		  };
 		
+		$scope.showInvitations(); //iif
+		$scope.selectedRows=[];
+		$scope.setClickedRow = function(index){ 
+			var inx=$scope.selectedRows.indexOf(index);
+			if(inx==-1)
+				$scope.selectedRows.push(index);
+			else
+				$scope.selectedRows.splice(inx, 1);
+		  };
+		
+		$scope.sendInvites = function(){ 
+			$scope.inviteButtonText="Please Wait.."
+			var createNewCampain=false;
+			var invitationList=[];
+			for (var i = 0; i < $scope.suppliers.length; i++) {
+				var invite={};
+				if($scope.selectedRows.indexOf(i)!=-1){
+					var sup= $scope.suppliers[i];
+					if(!$scope.invitaionsMap[sup.Supplier__c]){
+						createNewCampain=true; //createNewCampain if atleast one supplier not yet invited
+						invite.Supplier__c=sup.Supplier__c;
+						invite.Contact__c=sup.Supplier__r.PrimaryContact__c;
+						invite.Status__c='Open';
+						invite.Name='Invite_'+sup.Supplier__c;
+						invitationList.push(invite);
+					}
+				}				 
+			}
+			if(createNewCampain){
+				buyerService.sendInvites($scope.buyer,invitationList).then(function (camp) {
+					$scope.showInvitations();					
+				},function (error) {
+					console.log('nop');   
+				});
+			}else{
+				$scope.inviteButtonText="Invite Suppliers";
+			}
+		 };
 		
 		////////////////////////////////////////////////////////
 

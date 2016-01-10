@@ -1,7 +1,7 @@
 app.controller('loginCtrl', ['$scope', 'vfr', '$location','identityService','sharedObject' ,'$timeout',function ($scope, vfr, $location,identityService,sharedObject,$timeout) {
             $scope.beforeAuthentication = true;
             $scope.isAuthenticated = false;
-            $scope.user = {userid: "WalmartUser", password: "password"};
+            $scope.user = {userid: "AcmeUser", password: "password"};
             $scope.userResponse = {}
             $scope.loader = {loading: false};
             $scope.login = function () {
