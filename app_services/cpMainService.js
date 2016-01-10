@@ -27,3 +27,10 @@ app.factory('sharedObject',['$rootScope', function($rootScope) {  /// Use this o
 
     return sharedObject;
 }]);
+
+
+app.filter('resolveURL', ['ngForceConfig', function(ngForceConfig) {
+    return function(key) {
+    	return ngForceConfig.resourceUrl+key;
+    }
+}]);

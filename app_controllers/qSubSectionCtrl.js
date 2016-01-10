@@ -19,4 +19,4 @@ app.controller('qSubSectionCtrl', ['$scope', '$rootScope',
             //return true;
         }
 
-    }]);
+    }]); 

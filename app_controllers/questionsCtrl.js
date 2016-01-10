@@ -1,7 +1,7 @@
 app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService', 'identityService',
     'sharedObject', '$timeout', '$location', '$routeParams', '$rootScope',
     function ($scope, vfr, ngForceConfig, questionnaireService, identityService,
-              sharedObject, $timeout, $location, $routeParams, $rootScope) {
+              sharedObject, $timeout, $location, $routeParams, $rootScope) { 
 
         $scope.user = [];
         $scope.answers = {};
@@ -49,14 +49,13 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                     $scope.publishButtonText = "Authorize and Publish";
                 }
             });
-        }
-
+        } 
         $scope.$on('UpdateAnswers', function (args) {
             questionnaireService.updateQuestionnaireResponses($scope.supplier, $scope.answers).then(function (resp) {
                 $rootScope.$broadcast("AnswersUpdated", []);
             });
         });
-
+ 
         $scope.upDateAnswer = function () {
             $scope.searchButtonText = "Updating";
             questionnaireService.updateQuestionnaireResponses($scope.supplier,  $scope.answers).then(function (resp) {

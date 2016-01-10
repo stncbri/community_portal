@@ -1,0 +1,12 @@
+<div>
+	<uib-tabset type="tabs"> 
+		<uib-tab heading="Dashboard">
+			<div ng-include="'/app_templates/buyer/BuyerDashboard.html' | resolveURL"></div>
+			<!-- <show-buyer-dashboard></show-buyer-dashboard> --> 
+		</uib-tab> 
+		<uib-tab heading="Supplier">
+			<div ng-include="'/app_templates/buyer/BuyerSupplier.html' | resolveURL"></div> 
+			<!-- <show-buyer-supplier></show-buyer-supplier> -->
+		</uib-tab> 
+	</uib-tabset>
+</div>

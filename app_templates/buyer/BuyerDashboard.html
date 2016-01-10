@@ -1,0 +1,151 @@
+    
+    
+    <div  class="row" style="padding-left:65px;padding-right:60px;padding-top:30px" id="dashboard-container">
+         <div class="col-md-12">
+
+           <div class="panel panel-default" id="questionnaire-panel-data">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <b>Supplier Summary </b>
+                        </h3>
+
+                    </div>
+             <div class="panel-body">
+              <div class="row">
+                    <div class="col-sm-4">
+                        <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th><b>Tier-1 Suppliers</b></th>
+                                    <th>{{tierDetails.countAll}}</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Unregisteres</td>
+                                    <td>{{tierDetails.countAll-tierDetails.countRegisSupp}}</td>
+                                  </tr>
+                                   <tr>
+                                    <td>Level 1 </td>
+                                    <td>{{tierDetails.countL1Supp}}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <td>Level 2 </td>
+                                    <td>{{tierDetails.countL2Supp}}</td>
+                                  </tr> 
+                                  <tr>
+                                      <td>Diversity Spend</td>
+                                      <td>N/I</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                    </div>
+
+                    <div class="col-sm-4">
+                             <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th><b>Sub-Tier Suppliers</b></th>
+                                    <th>N/I</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Level 1</td>
+                                    <td>N/I</td>
+                                  </tr>
+
+                                  <tr>
+                                    <td>Level 2 (Verified) </td>
+                                    <td>N/I</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Level 2 (Not Verified)</td>
+                                    <td>N/I</td>
+                                  </tr>
+                                    <tr>
+                                        <td>Diversity Spend</td>
+                                        <td>N/I</td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th><b>30 Days Activity</b></th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>New</td>
+                                    <td>N/I</td>
+                                  </tr>
+
+                                  <tr>
+                                    <td>Verified </td>
+                                    <td>N/I</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Modified</td>
+                                    <td>N/I</td>
+                                  </tr>
+
+                                </tbody>
+                              </table>
+                    </div>
+                    </div>
+                 </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="panel panel-default" id="invitation-summary-panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <b>Invitation Summary (90 days)</b>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-sm-2">
+                                <div class="panel panel-primary">
+                                  <div class="panel-heading"><b>Invited</b></div>
+                                  <div class="panel-body">{{inviteDetails.countAll}}</div>
+
+                                </div>
+                            </div>
+                             <div class="col-sm-2">
+                                <div class="panel panel-info">
+                                  <div class="panel-heading"><b>Opened</b></div>
+                                  <div class="panel-body">{{inviteDetails.countOpened}}</div>
+                                </div>
+                            </div>
+                             <div class="col-sm-2">
+                                <div class="panel panel-success">
+                                  <div class="panel-heading"><b>Registered</b></div>
+                                  <div class="panel-body">{{inviteDetails.countRegisSupp}}</div>
+                                </div>
+                            </div>
+                             <div class="col-sm-2">
+                                <div class="panel panel-warning">
+                                  <div class="panel-heading"><b>Not Registered</b></div>
+                                  <div class="panel-body">{{inviteDetails.countAll-inviteDetails.countRegisSupp}}</div>
+                                </div>
+                            </div>
+                             <div class="col-sm-2">
+                                <div class="panel panel-danger">
+                                  <div class="panel-heading"><b>Rejected</b></div>
+                                  <div class="panel-body">{{inviteDetails.countRejected}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+        </div>
+

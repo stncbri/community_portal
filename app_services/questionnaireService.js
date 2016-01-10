@@ -5,7 +5,7 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
 
         var selectCriteria = '';
         if (level == '1') {
-            selectCriteria = ' where RegisteredLevel__c= 1';
+            selectCriteria = ' where RegisteredLevel__c= 1 ';
         } else {
             //get the selector obj.. for now keep it as empty..
         }
@@ -17,14 +17,14 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
 
 
     this.getAnswerObj = function(supplier){
-        var query = vfr.query("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from Supplierresponse__c where supplier__c='" + supplier[0].Id+"'");
+        var query = vfr.query("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from Supplierresponse__c where supplier__c='" + supplier.Id+"'");
         return query.then(function (response) {
             return response.records;
         });
     }
 
     this.getInvitations = function(supplier){
-        var query = vfr.query("SELECT Campaign__r.Buyer__r.Id,Campaign__r.Buyer__r.Name,Notes__c,Status__c FROM Invitation__c where supplier__r.Id='" + supplier[0].Id+"'");
+        var query = vfr.query("SELECT Campaign__r.Buyer__r.Id,Campaign__r.Buyer__r.Name,Notes__c,Status__c FROM Invitation__c where supplier__r.Id='" + supplier.Id+"'");
         return query.then(function (response) {
             return response.records;
         });
@@ -37,9 +37,9 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
                 var tmpJson = {
                     //"Buyer__c": buyers[0].Buyer__c,
                     "Question__c": item,
-                    "ResponseID__c": item + supplier[0].Id,
+                    "ResponseID__c": item + supplier.Id,
                     "ResponseText__c": answerModel[item],
-                    "Supplier__c": supplier[0].Id
+                    "Supplier__c": supplier.Id
                 }
                 answerObj.push(tmpJson);
             }
@@ -54,9 +54,9 @@ app.service('questionnaireService', ['vfr','sharedObject', function (vfr, shared
                 var tmpJson = {
                     "Buyer__c": buyerId,
                     "Question__c": item,
-                    "ResponseID__c": item + buyerId+supplier[0].Id,
+                    "ResponseID__c": item + buyerId+supplier.Id,
                     "ResponseText__c": answerModel[item],
-                    "Supplier__c": supplier[0].Id,
+                    "Supplier__c": supplier.Id,
                     "Status__c": "published"
                 }
                 answerObj.push(tmpJson);

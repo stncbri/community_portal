@@ -1,7 +1,7 @@
-app.directive('showSupplierDashboard', function(ngForceConfig){
+app.directive('supplierApp', function(ngForceConfig){
     return {
         restrict: 'E',
-        templateUrl: ngForceConfig.resourceUrl+'/app_templates/supplier-dashboard.html',
+        templateUrl: ngForceConfig.resourceUrl+'/app_templates/supplierApp.html',
 	        scope: {
             supplier:"="
         },

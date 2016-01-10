@@ -1,4 +1,4 @@
-var app = angular.module('communityPortalApp', ['ngAnimate','ngRoute','ngProgress','ui.bootstrap','ngForce','ngForceConstants','xeditable','ui.date']);
+var app = angular.module('communityPortalApp', ['ngAnimate','ngRoute','ngProgress','ui.bootstrap','ngForce','ngForceConstants','xeditable']);
 
 
 app.config(function ($routeProvider, ngForceConfig) {
