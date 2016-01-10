@@ -4,7 +4,8 @@ app.directive('qSection', function(ngForceConfig){
         templateUrl: ngForceConfig.resourceUrl+'/app_templates/qSection.html',
         scope: {
         	model:"=",
-        	answers:"="
+        	answers:"=",
+            showEditControl:"="
         },
         link: function($scope, iElm, iAttrs, controller) {
         },
