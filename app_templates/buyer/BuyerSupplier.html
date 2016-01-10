@@ -1,113 +1,113 @@
 <div>
-	<div ng-show="showBuyerSupplier">
+    <div ng-show="showBuyerSupplier">
 
 
-		<div class="container-fluid questiontabsmain">
-			<div class="row" style="margin-top: 5px">
-				<div class="col-md-3">
-					<ul class="nav  nav-stacked">
-						<li><a>Suppliers</a></li>
-						<li><a>Sub-Tier Tree (N/I)</a></li>
-					</ul>
-				</div>
-				<div class="col-md-9"
-					style="border-width: 0px 0px 0px 1px; border-style: solid; border-color: #CCC;">
-					
-					<nav class="navbar navbar-default">
-						<div class="collapse navbar-collapse"
-							id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav navbar-right">
-								<li class="navbar-form">
-									<button type="button" class="btn btn-default btn-sm" 
-									ng-click="sendInvites()" ng-disabled="selectedRows.length==0 || inviteButtonText=='Please Wait..'">{{inviteButtonText}}</button>
-								</li>
-							</ul>
-						</div>
-					</nav>
+        <div class="container-fluid questiontabsmain">
+            <div class="row" style="margin-top: 5px">
+                <div class="col-md-3">
+                    <ul class="nav  nav-stacked">
+                        <li><a>Suppliers</a></li>
+                        <li><a>Sub-Tier Tree (N/I)</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9"
+                     style="border-width: 0px 0px 0px 1px; border-style: solid; border-color: #CCC;">
 
-					<table class="table">
-						<thead>
-							<tr>
-								<th><b>Suppliers</b></th>
-								<th>DUNS</th>
-								<th>Invitation Status</th>
-								<th>Level</th>
-								<th>Score</th>
-								<th>Activity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="supplier in suppliers"
-								ng-class="{'tablerowselected': selectedRows.indexOf($index)  != -1 }"
-								ng-click="setClickedRow($index)">
-								<td ng-click="callsupdetail(supplier.Supplier__r.Name,supplier.Supplier__r.DUNS__c)">
-									{{supplier.Supplier__r.Name}}</td>
-								<td>{{supplier.Supplier__r.DUNS__c}}</td>
-								<td>{{invitaionsMap[supplier.Supplier__c].Status__c?
-										invitaionsMap[supplier.Supplier__c].Status__c:'Not Yet Invited'}}</td>
-								<td>{{supplier.Supplier__r.CommunityAccount__r ?
-									supplier.Supplier__r.CommunityAccount__r.Level__c: 'Not
-									Registered'}}</td>
-								<td>Not Rated N/I</td>
-								<td>N/I</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+                    <nav class="navbar navbar-default">
+                        <div class="collapse navbar-collapse"
+                             id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="navbar-form">
+                                    <button type="button" class="btn btn-default btn-sm"
+                                            ng-click="sendInvites()"
+                                            ng-disabled="selectedRows.length==0 || inviteButtonText=='Please Wait..'">
+                                        {{inviteButtonText}}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
 
-		</div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th><b>Suppliers</b></th>
+                            <th>DUNS</th>
+                            <th>Invitation Status</th>
+                            <th>Level</th>
+                            <th>Score</th>
+                            <th>Activity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="supplier in suppliers"
+                            ng-class="{'tablerowselected': selectedRows.indexOf($index)  != -1 }"
+                            ng-click="setClickedRow($index)">
+                            <td>
+                                <div  ng-if="invitaionsMap[supplier.Supplier__c].Status__c == 'Published'">
+                                    <a ng-click="callsupdetail(supplier.Supplier__r)"> {{supplier.Supplier__r.Name}}</a>
+                                </div>
+                                <div  ng-if="invitaionsMap[supplier.Supplier__c].Status__c != 'Published'">
+                                    {{supplier.Supplier__r.Name}}
+                                </div>
+                            </td>
+                            <td>{{supplier.Supplier__r.DUNS__c}}</td>
+                            <td>{{invitaionsMap[supplier.Supplier__c].Status__c?
+                                invitaionsMap[supplier.Supplier__c].Status__c:'Not Yet Invited'}}
+                            </td>
+                            <td>{{supplier.Supplier__r.CommunityAccount__r ?
+                                supplier.Supplier__r.CommunityAccount__r.Level__c: 'Not Registered'}}
+                            </td>
+                            <td>Not Rated N/I</td>
+                            <td>N/I</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-	</div>
+        </div>
+
+    </div>
 
 
-	<!-- Supplier and questionnaire details page  - Start-->
-	<div ng-show="showBuyerSupplierdetail">
-		<a ng-click="callsupdetail()">Suppliers</a> / {{supplierName}}
+    <!-- Supplier and questionnaire details page  - Start-->
+    <div ng-if="showBuyerSupplierdetail">
+        <a ng-click="callsupdetail()">Suppliers</a> / {{supplierName}}
 
-		<div class="container-fluid questiontabsmain"
-			style="padding-top: 10px">
+        <div class="container-fluid questiontabsmain"
+             style="padding-top: 10px">
 
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<b>DUNS Number </b>
-					</h3>
-				</div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <b>DUNS Number </b>
+                    </h3>
+                </div>
 
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-sm-2">
-							<h3 class="panel-title">DUNS Number</h3>
-						</div>
-						<div class="col-sm-2">
-							<h3 class="panel-title">{{supplierDUNS}}</h3>
-						</div>
-						<div class="col-sm-2">
-							<h3 class="panel-title">Supplier</h3>
-						</div>
-						<div class="col-sm-2">
-							<h3 class="panel-title">{{supplierName}}</h3>
-						</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <h3 class="panel-title">DUNS Number</h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="panel-title">{{supplierDUNS}}</h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="panel-title">Supplier</h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="panel-title">{{supplierName}}</h3>
+                        </div>
 
-					</div>
-				</div>
-			</div>
+                    </div>
+                </div>
+            </div>
+            <supplier-app supplier="selectedSupplier"
+                          buyer-id="user.CommunityAccount__r.Community__r.Id"></supplier-app>
+        </div>
+    </div>
 
-			<div ng-controller="questionsCtrl">
-				<div class="row" style="margin-top: 5px">
-					<div class="col-md-12">
-						<uib-tabset> <uib-tab
-							ng-repeat="l1 in questionnaire track by $index"
-							heading="{{l1.QuestionText__c}}" ng-show="!l1.length"
-							active="l1.active"> <q-section model="l1"
-							answers="answers"></q-section> </uib-tab> </uib-tabset>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Supplier and questionnaire details page  - End-->
+    <!-- Supplier and questionnaire details page  - End-->
 </div>
 

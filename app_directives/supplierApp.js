@@ -1,11 +1,12 @@
-app.directive('supplierApp', function(ngForceConfig){
+app.directive('supplierApp', function (ngForceConfig) {
     return {
         restrict: 'E',
-        templateUrl: ngForceConfig.resourceUrl+'/app_templates/supplierApp.html',
-	        scope: {
-            supplier:"="
+        templateUrl: ngForceConfig.resourceUrl + '/app_templates/supplierApp.html',
+        scope: {
+            supplier: "=",
+            buyerId:"="
         },
-        link: function($scope, iElm, iAttrs, controller) {
-        },controller:'questionsCtrl'
+        link: function ($scope, iElm, iAttrs, controller) {
+        }, controller: 'questionsCtrl'
     };
-}) ;
+});

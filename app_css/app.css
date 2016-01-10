@@ -158,10 +158,6 @@ body {
     margin-left: 0px;
 }
 
-div[ng-app] {
-    margin: 10px;
-}
-
 form[name="editableForm"] > div {
     height: auto;
     padding: 5px 0;

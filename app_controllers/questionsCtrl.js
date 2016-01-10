@@ -1,34 +1,54 @@
 app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnaireService', 'identityService',
     'sharedObject', '$timeout', '$location', '$routeParams', '$rootScope',
     function ($scope, vfr, ngForceConfig, questionnaireService, identityService,
-              sharedObject, $timeout, $location, $routeParams, $rootScope) { 
+              sharedObject, $timeout, $location, $routeParams, $rootScope) {
 
-        $scope.user = [];
-        $scope.answers = {};
-        $scope.user = sharedObject.get('user');
-        $scope.searchButtonText = "Update";
-        $scope.publishButtonText = "Authorize and Publish";
-        $scope.supplierID = $routeParams.Id;
-        $scope.showDashBoard = true;
+        $scope.init = function () {
+            $scope.user = [];
+            $scope.answers = {};
+            $scope.user = sharedObject.get('user');
+            $scope.searchButtonText = "Update";
+            $scope.publishButtonText = "Authorize and Publish";
+            $scope.showDashBoard = true;
+            $scope.showEditControl = true;
+        }
+        $scope.init();
+        $scope.$watch('buyerId', function (value) {
+            if (value != null) {
+                $scope.buyerId = value;
+                $scope.showDashBoard = false;
+                $scope.showEditControl = false;
+            }
+        });
+
+
         $scope.$watch('supplier', function (value) {
             $scope.supplier = value;
             if (angular.isDefined($scope.supplier)) {
-
                 // If valid Supplier - fetch the answers..
-                questionnaireService.getAnswerObj($scope.supplier).then(function (resp) {
-                    if (angular.isDefined(resp) && resp.length >= 0) {
-                        for (var item in resp) {
-                            $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
+                if (angular.isDefined($scope.buyerId)) {
+                    questionnaireService.getPublishedAnswerObj($scope.supplier, $scope.buyerId).then(function (resp) {
+                        if (angular.isDefined(resp) && resp.length > 0) {
+                            for (var item in resp) {
+                                $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
+                            }
                         }
-                    }
-                });
-
-                // Then fetch the Invitations
-                questionnaireService.getInvitations($scope.supplier).then(function (resp) {
-                    if (angular.isDefined(resp) && resp.length >= 0) {
-                        $scope.invitations = resp;
-                    }
-                });
+                    });
+                } else {
+                    questionnaireService.getAnswerObj($scope.supplier).then(function (resp) {
+                        if (angular.isDefined(resp) && resp.length >= 0) {
+                            for (var item in resp) {
+                                $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
+                            }
+                        }
+                    });
+                    // Then fetch the Invitations
+                    questionnaireService.getInvitations($scope.supplier).then(function (resp) {
+                        if (angular.isDefined(resp) && resp.length >= 0) {
+                            $scope.invitations = resp;
+                        }
+                    });
+                }
             }
         });
 
@@ -42,23 +62,40 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
             $scope.questionnaire = $scope.makeQuestionTree();
         });
 
-        $scope.publishTo = function (buyerId) {
+        $scope.getInvitations = function () {
+            questionnaireService.getInvitations($scope.supplier).then(function (invResp) {
+                if (angular.isDefined(invResp) && invResp.length >= 0) {
+                    $scope.invitations = invResp;
+                }
+            })
+        };
+        $scope.updateInvitationStatus = function (invId, status) {
+            questionnaireService.updateInvitationStatus(invId, status).then(function (resp) {
+                $scope.getInvitations();
+            });
+        }
+
+        $scope.publishTo = function (buyerId, invitationId) {
             $scope.publishButtonText = "Updating...";
             questionnaireService.publish($scope.supplier, buyerId, $scope.answers).then(function (resp) {
-                if (angular.isDefined(resp)) {
-                    $scope.publishButtonText = "Authorize and Publish";
+                    if (angular.isDefined(resp)) {
+                        $scope.publishButtonText = "Authorize and Publish";
+                        $scope.updateInvitationStatus(invitationId, "Published")
+                    }
                 }
-            });
-        } 
+            );
+
+
+        }
         $scope.$on('UpdateAnswers', function (args) {
             questionnaireService.updateQuestionnaireResponses($scope.supplier, $scope.answers).then(function (resp) {
                 $rootScope.$broadcast("AnswersUpdated", []);
             });
         });
- 
+
         $scope.upDateAnswer = function () {
             $scope.searchButtonText = "Updating";
-            questionnaireService.updateQuestionnaireResponses($scope.supplier,  $scope.answers).then(function (resp) {
+            questionnaireService.updateQuestionnaireResponses($scope.supplier, $scope.answers).then(function (resp) {
                 $scope.searchButtonText = "Update";
             });
         }
