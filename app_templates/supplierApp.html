@@ -17,7 +17,7 @@
                                         </button>
                                         <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
                                             <li ng-repeat="invitation in invitations track by $index"
-                                                ng-if="invitation.Status__c != 'Open' && invitation.Status__c != 'Published'" role="menuitem">
+                                                ng-if="invitation.Status__c == 'Accepted' && invitation.Status__c != 'Published'" role="menuitem">
                                                 <a ng-click="publishTo(invitation.Campaign__r.Buyer__r.Id,invitation.Id)">{{invitation.Campaign__r.Buyer__r.Name}}</a>
                                             </li>
                                         </ul>

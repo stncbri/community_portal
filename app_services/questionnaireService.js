@@ -1,5 +1,5 @@
 app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, sharedObject) {
-    this.getQuestionnaire = function (userf, selectorID) {
+    this.getQuestionnaire = function (user, selectorID) {
 
         var level = user.CommunityAccount__r.Level__c;
 
@@ -8,10 +8,11 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
             selectCriteria = " where RegisteredLevel__c= 1 ";
         } else {
             if (selectorID != null) {
-                selectCriteria = " Selector__R.Id = null or Selector__R.Id ='" + selectorID + "'"
+                selectCriteria = " where Selector__R.Id = null or Selector__R.Id ='" + selectorID + "'"
             }
         }
         var questionnaireQuery = vfr.query("Select Id,  Name, DataType__c, isAnswerRequired__c, isPrefilledbyDNB__c, QuestionText__c, Selector__c, QuestionType__c, Parent__c, DisplayLevel__c, DisplayOrder__c, RegisteredLevel__c,Validation__c FROM Question__c" + selectCriteria);
+        console.log("Select Id,  Name, DataType__c, isAnswerRequired__c, isPrefilledbyDNB__c, QuestionText__c, Selector__c, QuestionType__c, Parent__c, DisplayLevel__c, DisplayOrder__c, RegisteredLevel__c,Validation__c FROM Question__c" + selectCriteria);
         return questionnaireQuery.then(function (response) {
             return response.records;
         });
@@ -86,7 +87,7 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
         });
     }
 
-    this.publish = function (supplier, buyerId, answerModel) {
+    this.publish = function (supplier, buyerId, answerModel,invitationId) {
         var answerObj = [];
         for (var item in answerModel)
             if (answerModel.hasOwnProperty(item)) {
@@ -96,7 +97,8 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
                     "ResponseID__c": item + buyerId + supplier.Id,
                     "ResponseText__c": answerModel[item],
                     "Supplier__c": supplier.Id,
-                    "Status__c": "published"
+                    "Status__c": "published",
+                    "Invitation__c":invitationId
                 }
                 answerObj.push(tmpJson);
             }
