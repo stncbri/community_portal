@@ -21,21 +21,24 @@ app.directive("showEditControl", function (ngForceConfig) {
         scope: {},
         require: "^form",
         link: function (scope, element, attrs, form) {
-            scope.form = form;
-            scope.searchButtonText = "Update"
-
+            scope.form = form; 
         },
         controller: 'FormsValidationCtrl'
 
     }
 })
 
-app.controller("FieldsCtrl", ['$scope', function ($scope) {
+app.controller("FieldsCtrl", ['$scope','$filter' ,function ($scope,$filter) {
 
     $scope.statuses = [
-        {value: true, text: 'Yes'},
-        {value: false, text: 'No'},
+        {value: 'true', text: 'Yes'},
+        {value: 'false', text: 'No'},
     ];
+    
+    $scope.showYesNoOptions = function() {
+        var selected = $filter('filter')($scope.statuses, {value: $scope.answers[$scope.question.Id]});
+        return ($scope.answers[$scope.question.Id] && selected.length) ? selected[0].text : '___';
+      };
 
     $scope.validate = function (data, validationClass) {
         //return true;
@@ -48,16 +51,15 @@ app.controller("FieldsCtrl", ['$scope', function ($scope) {
 }]);
 
 app.controller("FormsValidationCtrl", ['$scope', function ($scope) {
-    $scope.searchButtonText = "Update";
+    $scope.searchButtonText = "Edit";
     $scope.$watch('model', function (newValue, oldValue) {
         //console.log('scope reached child : '+$scope.model);
     });
-    $scope.upDateAnswer = function () {
-        $scope.searchButtonText = "Updating";
-        $rootScope.$broadcast("UpdateAnswers", []);
-    }
+    $scope.$on('UpdateAnswers', function (args) {
+    	$scope.searchButtonText = "Updating..."; 
+    });
     $scope.$on('AnswersUpdated', function (args) {
-        $scope.searchButtonText = "Update";
+        $scope.searchButtonText = "Edit";
         $scope.$apply();
     });
 

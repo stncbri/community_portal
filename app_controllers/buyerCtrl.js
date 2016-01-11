@@ -109,8 +109,9 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
             $scope.supplierName = selectedSupplier.Name;
             $scope.supplierDUNS = selectedSupplier.DUNS__c;
             // Get the selected supplier id..
-            $scope.selectedSupplier = selectedSupplier;
-
+            delete $scope.questionnaire; 
+            $scope.supplier= selectedSupplier;
+            $scope.$apply();
         };
 
 

@@ -24,11 +24,10 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                 $scope.showEditControl = false;
             }
         });
-
+         
         $scope.$watch('supplier', function (value) {
             $scope.supplier = value;
-            if (angular.isDefined($scope.supplier)) {
-                // If valid Supplier - fetch the answers..
+            if (angular.isDefined($scope.supplier)) { 
                 if (angular.isDefined($scope.buyerId)) {
                     questionnaireService.getPublishedAnswerObj($scope.supplier, $scope.buyerId).then(function (resp) {
                         if (angular.isDefined(resp) && resp.length > 0) {
@@ -42,10 +41,10 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                         if (angular.isDefined(resp) && resp.length >= 0) {
                             for (var item in resp) {
                                 $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
-                            }
+                            }                            
                         }
-                    });
-                    // Then fetch the Invitations
+                        $scope.getQuestionnaire();
+                    }); 
                     questionnaireService.getInvitations($scope.supplier).then(function (resp) {
                         if (angular.isDefined(resp) && resp.length >= 0) {
                             $scope.invitations = resp;
@@ -75,18 +74,23 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                 questionnaireService.getQuestionnaire($scope.user, $scope.selectorID).then(function (d) {
                     $scope.questions = d;
                     $scope.questionnaire = $scope.makeQuestionTree();
+                    $scope.validateComplete();
+                    $scope.$apply();
                 });
             });
-        }
+        };
 
         $scope.getInvitations = function () {
             questionnaireService.getInvitations($scope.supplier).then(function (invResp) {
                 if (angular.isDefined(invResp) && invResp.length >= 0) {
                     $scope.invitations = invResp;
+                    $scope.inviteButtonDisabled=false;
+                    $scope.$apply();
                 }
             })
         };
         $scope.updateInvitationStatus = function (invId, status) {
+        	$scope.inviteButtonDisabled=true;
             questionnaireService.updateInvitationStatus(invId, status).then(function (resp) {
                 $scope.getInvitations();
             });
@@ -104,9 +108,9 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
             );
         }
 
-        if (angular.isDefined($scope.user)) {
-            $scope.getQuestionnaire();
-        }
+//        if (angular.isDefined($scope.user)) {
+//            $scope.getQuestionnaire();
+//        }
  
         $scope.upgradeAccountLevel = function () {
             $scope.upgradeText = "Upgrading..."
@@ -118,6 +122,7 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                         $scope.user = sharedObject.get('user');
                         $scope.getQuestionnaire();
                         $scope.upgradeText = "Done";
+                        $scope.$apply();
                     }
                 });
             });
@@ -126,6 +131,8 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
         $scope.$on('UpdateAnswers', function (args) {
             questionnaireService.updateQuestionnaireResponses($scope.supplier, $scope.answers).then(function (resp) {
                 $rootScope.$broadcast("AnswersUpdated", []);
+                $scope.validateComplete();
+                $scope.$apply();
             });
         });
  
@@ -134,6 +141,44 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
             questionnaireService.updateQuestionnaireResponses($scope.supplier, $scope.answers).then(function (resp) {
                 $scope.searchButtonText = "Update";
             });
+        }
+        
+        
+        $scope.validateComplete = function () {
+        	
+        	function findQuestions(lx,ans) {
+        		var mandatoryNotFilled=0;
+        		for (var i = 0; i < lx.length; i++) {
+                    var li=lx[i];
+                    if(li.children && li.children.length>0){
+                    	var mnf=findQuestions(li.children,ans);
+                    	if(mnf==1){
+                    		li.complete="false";
+                    		mandatoryNotFilled=1;
+                    	}
+                    	if(mnf==2){
+                    		li.complete="true";
+                    		if(mandatoryNotFilled!=1)
+                    			mandatoryNotFilled=2;
+                    	}
+                    }else{
+                    	if(li.isAnswerRequired__c){
+                    		var a=ans[li.Id];
+                    		if(!a)
+                    			mandatoryNotFilled=1;
+                    		else{
+                    			if(mandatoryNotFilled!=1)
+                    				mandatoryNotFilled=2;
+                    		}
+                    	}
+                    }
+               }
+        		return mandatoryNotFilled;
+        	};
+        	
+        	var qs = $scope.questionnaire;
+        	var ans = $scope.answers;
+        	findQuestions(qs,ans);
         }
 
         $scope.makeQuestionTree = function () {		 //TODO may be better when located apex service.

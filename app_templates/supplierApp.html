@@ -1,66 +1,96 @@
 <div>
-    <uib-tabset ng-show="questionnaire">
-        <uib-tab heading="Dashboard" ng-if="showDashBoard">
-            <div style="margin-top: 20px;" id="dashboard-container">
-                <div style="padding-left: 20px;padding-right: 20px;">
-                    <div class="panel panel-default" id="questionnaire-panel-data">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <b> Questionnaire Summary</b>
+	<uib-tabset ng-show="questionnaire"> <uib-tab
+		heading="Dashboard" ng-if="showDashBoard">
+	<div style="margin-top: 20px;" id="dashboard-container">
+		<div style="padding-left: 20px; padding-right: 20px;">
+			<div class="panel panel-default" id="questionnaire-panel-data">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<b> Questionnaire Summary</b>
 
-                                <div class="dropdown pull-right" style="bottom: 9px;">
-                                    <!-- Single button -->
-                                    <div class="btn-group" uib-dropdown>
-                                        <button id="single-button" type="button" class="btn btn-primary"
-                                                uib-dropdown-toggle ng-disabled="disabled">
-                                            {{publishButtonText}} <span class="caret"></span>
-                                        </button>
-                                        <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-                                            <li ng-repeat="invitation in invitations track by $index"
-                                                ng-if="invitation.Status__c == 'Accepted' && invitation.Status__c != 'Published'" role="menuitem">
-                                                <a ng-click="publishTo(invitation.Campaign__r.Buyer__r.Id,invitation.Id)">{{invitation.Campaign__r.Buyer__r.Name}}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </h3>
+						<div class="dropdown pull-right" style="bottom: 9px;">
+							<!-- Single button -->
+							<div class="btn-group" uib-dropdown>
+								<button id="single-button" type="button" class="btn btn-primary"
+									uib-dropdown-toggle ng-disabled="disabled">
+									{{publishButtonText}} <span class="caret"></span>
+								</button>
+								<ul class="uib-dropdown-menu" role="menu"
+									aria-labelledby="single-button">
+									<li ng-repeat="invitation in invitations track by $index"
+										ng-if="invitation.Status__c == 'Accepted' && invitation.Status__c != 'Published'"
+										role="menuitem"><a
+										ng-click="publishTo(invitation.Campaign__r.Buyer__r.Id,invitation.Id)">{{invitation.Campaign__r.Buyer__r.Name}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</h3>
 
-                        </div>
+				</div>
 
-                        <div class="apptbody">
-                            <table class="table table-bordered" style="margin: 0px;">
-                                <tr ng-repeat="l1 in questionnaire" ng-if="l1.QuestionType__c == 'Section'" class="apptr">
-                                    <td class="info apptd" style="font-size: 15px;font-weight: 300;border-top: 0px;">
-                                        {{l1.QuestionText__c}}
-                                    </td>
-                                    <td class=" apptd" ng-repeat="l2 in l1.children"
-                                        style="font-size: 13px;font-weight: 300;border-top: 0px;"><a
-                                            ng-click="l1.active=true">
-                                        {{l2.QuestionText__c}}</a></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+				<div class="apptbody">
+					<table class="table table-bordered" style="margin: 0px;">
+						<tr ng-repeat="l1 in questionnaire"
+							ng-if="l1.QuestionType__c == 'Section'" class="apptr">
+							<td class="info apptd"
+								style="font-size: 15px; font-weight: 300; border-top: 0px;">
+								{{l1.QuestionText__c}}</td>
+							<td class=" apptd" ng-repeat="l2 in l1.children" 
+								ng-class="{'danger': l2.complete && l2.complete=='false' ,
+								'success': l2.complete && l2.complete=='true', 'active': !l2.complete}"
+								style="font-size: 13px; font-weight: 300; border-top: 0px;"><a
+								ng-click="l1.active=true"> {{l2.QuestionText__c}}</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
 
-                    <div class="col-sm-12" ng-show="user.CommunityAccount__r.Level__c ==1">
-                        <div class="panel panel-default" id="level-1-upgrade">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Register as a Level 2 Supplier</h3>
-                            </div>
-                            <div class="panel-body">
-                                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <button class="btn btn-primary" ng-click="upgradeAccountLevel()">{{upgradeText}}</button>
-                            </div>
-                        </div>
-                    </div>
+			<div class="col-sm-12"
+				ng-show="user.CommunityAccount__r.Level__c ==1">
+				<div class="panel panel-default" id="level-1-upgrade">
+					<div class="panel-heading">
+						<h3 class="panel-title">Register as a Level 2 Supplier</h3>
+					</div>
+					<div class="panel-body">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna
+							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+							ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						<button class="btn btn-primary" ng-click="upgradeAccountLevel()">{{upgradeText}}</button>
+					</div>
+				</div>
+			</div>
 
-                    <div class="col-sm-12">
-                        <div class="panel panel-default" id="invitation-summary-panel">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Invitations</h3>
-                            </div>
-                            <div class="panel-body">
-                                <table class="table table-bordered">
+			<div class="col-sm-12">
+				<div class="panel panel-default" id="invitation-summary-panel" ng-if="invitations && invitations.length>0">
+					<div class="panel-heading">
+						<h3 class="panel-title">Invitations</h3>
+					</div>
+					<div class="panel-body">
+
+						<div class="well form-horizontal"
+							ng-repeat="invitation in invitations">
+							<div class="form-group" style="margin-bottom: 0px;">
+								<div class="invitewell col-md-10  ">
+									You have been invited to join the <span class="boldlabel">{{invitation.Campaign__r.Buyer__r.Name}}</span>
+									supplier network
+								</div>
+								<div class="invitebutton col-md-2" >
+									<button ng-if="invitation.Status__c == 'Open'" type="submit"
+										class="btn btn-primary col-sm-2" style="width: 80%" ng-disabled="inviteButtonDisabled"
+										ng-click="updateInvitationStatus(invitation.Id,'Accepted')">Accept</button>
+									<button ng-if="invitation.Status__c == 'Accepted'" type="submit"
+										class="btn btn-primary col-sm-2" style="width: 80%" ng-disabled="inviteButtonDisabled"
+										ng-click="publishTo(invitation.Campaign__r.Buyer__r.Id,invitation.Id)">Publish</button>
+									<div ng-if="invitation.Status__c == 'Published'" type="submit"
+										class="col-sm-2" style="width: 80%" >
+										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									</div>		
+								</div>
+							</div>
+						</div>
+						<!-- <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th>#</th>
@@ -84,17 +114,15 @@
                                         </td>
                                     </tr>
                                     </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </uib-tab>
-        <uib-tab ng-repeat="l1 in questionnaire track by $index"
-                 heading="{{l1.QuestionText__c}}"
-                 active="l1.active" ng-if="l1.QuestionType__c == 'Section'">
-            <q-section model="l1" answers="answers" show-edit-control="showEditControl"></q-section>
-        </uib-tab>
-    </uib-tabset> 
+                                </table> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</uib-tab> <uib-tab ng-repeat="l1 in questionnaire track by $index"
+		heading="{{l1.QuestionText__c}}" active="l1.active"
+		ng-if="l1.QuestionType__c == 'Section'"> <q-section
+		model="l1" answers="answers" show-edit-control="showEditControl"></q-section>
+	</uib-tab> </uib-tabset>
 </div>
