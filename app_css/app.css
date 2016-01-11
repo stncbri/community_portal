@@ -1,3 +1,13 @@
+.invitewell
+{
+    margin: 15px;
+    font-size: 16px;
+    color: #552086;
+}
+.boldlabel{
+	font-weight: 500;
+}
+
 .tablerowselected { 
     background-color: #E2E2E2;
     font-weight: 400; 

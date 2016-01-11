@@ -2,7 +2,7 @@ app.service('identityService', ['vfr', function (vfr) {
  
 	this.findUser = function (uid,ps) {
         var userlookupQuery = vfr.query("select  Name, password__c, Email__c,  Id , " +
-        		"CommunityAccount__r.Level__c, CommunityAccount__r.AccountInfo__c, " +
+        		"CommunityAccount__r.Id,CommunityAccount__r.Level__c, CommunityAccount__r.AccountInfo__c, " +
         		"CommunityAccount__r.AccountProfileType__c, CommunityAccount__r.Community__c," +
         		"CommunityAccount__r.Community__r.Size__c, " +
         		"CommunityAccount__r.Community__r.Name, CommunityAccount__r.Community__r.Id, " +

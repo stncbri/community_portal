@@ -1,15 +1,20 @@
 app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, sharedObject) {
-    this.getQuestionnaire = function (user) {
+    this.getQuestionnaire = function (user, selectorID) {
 
         var level = user.CommunityAccount__r.Level__c;
 
         var selectCriteria = '';
         if (level == '1') {
-            selectCriteria = ' where RegisteredLevel__c= 1 ';
+            selectCriteria = " where RegisteredLevel__c= 1 ";
         } else {
-            //get the selector obj.. for now keep it as empty..
+            if (selectorID != null) {
+                selectCriteria = " where Selector__R.Id = null or Selector__R.Id ='" + selectorID + "'"
+            }else{
+                selectCriteria = " where Selector__R.Id = null"
+            }
         }
-        var questionnaireQuery = vfr.query("Select Id,  Name, DataType__c, isAnswerRequired__c, isPrefilledbyDNB__c, QuestionText__c, Selector__c, QuestionType__c, Parent__c, DisplayLevel__c, DisplayOrder__c, RegisteredLevel__c FROM Question__c" + selectCriteria);
+        var questionnaireQuery = vfr.query("Select Id,  Name, DataType__c, isAnswerRequired__c, isPrefilledbyDNB__c, QuestionText__c, Selector__c, QuestionType__c, Parent__c, DisplayLevel__c, DisplayOrder__c, RegisteredLevel__c,Validation__c FROM Question__c" + selectCriteria);
+        console.log("Select Id,  Name, DataType__c, isAnswerRequired__c, isPrefilledbyDNB__c, QuestionText__c, Selector__c, QuestionType__c, Parent__c, DisplayLevel__c, DisplayOrder__c, RegisteredLevel__c,Validation__c FROM Question__c" + selectCriteria);
         return questionnaireQuery.then(function (response) {
             return response.records;
         });
@@ -66,7 +71,25 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
         // Issue in ngforce.. update does not seem to work.. using bulk update insert as a work around..
         return vfr.bulkUpdate("Invitation__c", angular.toJson(tmpArray));
     }
-    this.publish = function (supplier, buyerId, answerModel) {
+    this.upgradeAccountLevel = function (user) {
+        var tmpArray = [];
+        var tmpJson = {
+            "Id": user.CommunityAccount__r.Id,
+            "Level__c": 2
+        }
+        tmpArray.push(tmpJson);
+        console.log(tmpArray)
+        return vfr.bulkUpdate("CommunityAccount__c", angular.toJson(tmpArray));
+    }
+
+    this.getSelectors = function () {
+        var query = vfr.query("select Id, param1__c, param2__c,param3__c from selector__c");
+        return query.then(function (response) {
+            return response.records;
+        });
+    }
+
+    this.publish = function (supplier, buyerId, answerModel,invitationId) {
         var answerObj = [];
         for (var item in answerModel)
             if (answerModel.hasOwnProperty(item)) {
@@ -76,7 +99,8 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
                     "ResponseID__c": item + buyerId + supplier.Id,
                     "ResponseText__c": answerModel[item],
                     "Supplier__c": supplier.Id,
-                    "Status__c": "published"
+                    "Status__c": "published",
+                    "Invitation__c":invitationId
                 }
                 answerObj.push(tmpJson);
             }

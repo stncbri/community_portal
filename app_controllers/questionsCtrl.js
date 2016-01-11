@@ -3,16 +3,20 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
     function ($scope, vfr, ngForceConfig, questionnaireService, identityService,
               sharedObject, $timeout, $location, $routeParams, $rootScope) { 
 
-        $scope.init = function () {
-            $scope.user = [];
-            $scope.answers = {};
-            $scope.user = sharedObject.get('user');
-            $scope.searchButtonText = "Update";
-            $scope.publishButtonText = "Authorize and Publish";
-            $scope.showDashBoard = true;
-            $scope.showEditControl = true;
-        }
-        $scope.init();
+        $scope.user = [];
+        $scope.user = sharedObject.get('user');
+        $scope.selectorID = null;
+        $scope.answers = {};
+        $scope.searchButtonText = "Update";
+        $scope.publishButtonText = "Authorize and Publish";
+        $scope.showDashBoard = true;
+        $scope.showEditControl = true;
+        $scope.upgradeText = "Register as a Level 2 Supplier"
+        $scope.industry = $scope.user.CommunityAccount__r.Community__r.Industry__c;
+        $scope.size = $scope.user.CommunityAccount__r.Community__r.Size__c;
+        $scope.country = 'USA' // Need to add a country field..
+
+
         $scope.$watch('buyerId', function (value) {
             if (value != null) {
                 $scope.buyerId = value;
@@ -20,7 +24,6 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                 $scope.showEditControl = false;
             }
         });
-
 
         $scope.$watch('supplier', function (value) {
             $scope.supplier = value;
@@ -57,10 +60,24 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
             $scope.buyers = resp;
         });
 
-        questionnaireService.getQuestionnaire($scope.user).then(function (d) {
-            $scope.questions = d;
-            $scope.questionnaire = $scope.makeQuestionTree();
-        });
+
+        $scope.getQuestionnaire = function () {
+            questionnaireService.getSelectors().then(function (resp) {
+                if (angular.isDefined(resp)) {
+                    for (var item in resp) {
+                        var outCome = $scope.$eval(resp[item].Param1__c) && $scope.$eval(resp[item].Param2__c) && $scope.$eval(resp[item].Param3__c);
+                        if (outCome) {
+                            $scope.selectorID = resp[item].Id;
+                        }
+                    }
+                }
+
+                questionnaireService.getQuestionnaire($scope.user, $scope.selectorID).then(function (d) {
+                    $scope.questions = d;
+                    $scope.questionnaire = $scope.makeQuestionTree();
+                });
+            });
+        }
 
         $scope.getInvitations = function () {
             questionnaireService.getInvitations($scope.supplier).then(function (invResp) {
@@ -78,17 +95,34 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
 
         $scope.publishTo = function (buyerId, invitationId) {
             $scope.publishButtonText = "Updating...";
-            questionnaireService.publish($scope.supplier, buyerId, $scope.answers).then(function (resp) {
+            questionnaireService.publish($scope.supplier, buyerId, $scope.answers, invitationId).then(function (resp) {
                     if (angular.isDefined(resp)) {
                         $scope.publishButtonText = "Authorize and Publish";
                         $scope.updateInvitationStatus(invitationId, "Published")
                     }
                 }
             );
+        }
 
-
-        } 
-        
+        if (angular.isDefined($scope.user)) {
+            $scope.getQuestionnaire();
+        }
+ 
+        $scope.upgradeAccountLevel = function () {
+            $scope.upgradeText = "Upgrading..."
+            questionnaireService.upgradeAccountLevel($scope.user).then(function (resp) {
+                // Refresh the user
+                identityService.findUser($scope.user.Name, '').then(function (resp) {
+                    if (angular.isDefined(resp)) {
+                        sharedObject.put('user', resp[0]);
+                        $scope.user = sharedObject.get('user');
+                        $scope.getQuestionnaire();
+                        $scope.upgradeText = "Done";
+                    }
+                });
+            });
+        }
+ 
         $scope.$on('UpdateAnswers', function (args) {
             questionnaireService.updateQuestionnaireResponses($scope.supplier, $scope.answers).then(function (resp) {
                 $rootScope.$broadcast("AnswersUpdated", []);
