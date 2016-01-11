@@ -9,6 +9,8 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
         } else {
             if (selectorID != null) {
                 selectCriteria = " where Selector__R.Id = null or Selector__R.Id ='" + selectorID + "'"
+            }else{
+                selectCriteria = " where Selector__R.Id = null"
             }
         }
         var questionnaireQuery = vfr.query("Select Id,  Name, DataType__c, isAnswerRequired__c, isPrefilledbyDNB__c, QuestionText__c, Selector__c, QuestionType__c, Parent__c, DisplayLevel__c, DisplayOrder__c, RegisteredLevel__c,Validation__c FROM Question__c" + selectCriteria);

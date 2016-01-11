@@ -68,13 +68,14 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                         var outCome = $scope.$eval(resp[item].Param1__c) && $scope.$eval(resp[item].Param2__c) && $scope.$eval(resp[item].Param3__c);
                         if (outCome) {
                             $scope.selectorID = resp[item].Id;
-                            questionnaireService.getQuestionnaire($scope.user, $scope.selectorID).then(function (d) {
-                                $scope.questions = d;
-                                $scope.questionnaire = $scope.makeQuestionTree();
-                            });
                         }
                     }
                 }
+
+                questionnaireService.getQuestionnaire($scope.user, $scope.selectorID).then(function (d) {
+                    $scope.questions = d;
+                    $scope.questionnaire = $scope.makeQuestionTree();
+                });
             });
         }
 
@@ -93,7 +94,7 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
 
         $scope.publishTo = function (buyerId, invitationId) {
             $scope.publishButtonText = "Updating...";
-            questionnaireService.publish($scope.supplier, buyerId, $scope.answers,invitationId).then(function (resp) {
+            questionnaireService.publish($scope.supplier, buyerId, $scope.answers, invitationId).then(function (resp) {
                     if (angular.isDefined(resp)) {
                         $scope.publishButtonText = "Authorize and Publish";
                         $scope.updateInvitationStatus(invitationId, "Published")
