@@ -37,7 +37,13 @@ app.controller("FieldsCtrl", ['$scope', function ($scope) {
         {value: false, text: 'No'},
     ];
 
+    $scope.validate = function (data, validationClass) {
+        //return true;
+        if (validationClass == 'DUNS' && data.toString().length < 9) {
+            return "DUNS number cannot be less than 9 digits"
+        }
 
+    }
 
 }]);
 
@@ -56,11 +62,4 @@ app.controller("FormsValidationCtrl", ['$scope', function ($scope) {
     });
 
 
-    $scope.validate = function (data, validationClass) {
-        //return true;
-        if(validationClass == 'DUNS' && data.toString().length < 9 ){
-            return "DUNS number cannot be less than 9 digits"
-        }
-
-    }
 }]);
