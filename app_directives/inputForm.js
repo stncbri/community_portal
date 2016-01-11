@@ -5,11 +5,12 @@ app.directive("inputForm", function (ngForceConfig) {
             answers: '=',
             question: '='
         }, link: function (scope, elem, attr) {
-            if (scope.question.DataType__c == 'date' && angular.isDefined(scope.model)) {
-                scope.model = new Date(scope.model);
-            }
+            //if (scope.question.DataType__c == 'date' && angular.isDefined(scope.model)) {
+            //    scope.model = new Date(scope.model);
+            //}
 
-        }
+
+        }, controller: 'FieldsCtrl'
     }
 })
 
@@ -20,14 +21,25 @@ app.directive("showEditControl", function (ngForceConfig) {
         scope: {},
         require: "^form",
         link: function (scope, element, attrs, form) {
-            scope.form = form; //save parent form
-            scope.form.$setDirty();
+            scope.form = form;
             scope.searchButtonText = "Update"
+
         },
         controller: 'FormsValidationCtrl'
 
     }
 })
+
+app.controller("FieldsCtrl", ['$scope', function ($scope) {
+
+    $scope.statuses = [
+        {value: true, text: 'Yes'},
+        {value: false, text: 'No'},
+    ];
+
+
+
+}]);
 
 app.controller("FormsValidationCtrl", ['$scope', function ($scope) {
     $scope.searchButtonText = "Update";

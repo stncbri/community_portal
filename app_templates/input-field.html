@@ -19,12 +19,10 @@
               e-ng-required="{{question.isAnswerRequired__c}}"
               ng-if="question.DataType__c=='number'">{{ answers[question.Id] || 'empty' }}</span>
 
-
 	    <span editable-date="answers[question.Id]" e-name="{{question.Name}}"
               onbeforesave="validate($data,question.Validation__c)"
               e-ng-required="{{question.isAnswerRequired__c}}"
-              ng-if="question.DataType__c=='date'">{{ answers[question.Id] | date:"dd/MM/yyyy" || 'empty' }}</span>
-
+              ng-if="question.DataType__c=='date'">{{ answers[question.Id] | date:"dd-MMMM-yyyy" || 'empty' }}</span>
 
 	    <span editable-url="answers[question.Id]" e-name="{{question.Name}}"
               onbeforesave="validate($data,question.Validation__c)"
@@ -38,9 +36,10 @@
               ng-if="question.DataType__c=='email'">{{ answers[question.Id] || 'empty' }}</span>
 
 
-	    <span editable-checkbox="answers[question.Id]"
+	    <span editable-select="answers[question.Id]"
               onbeforesave="validate($data,question.Validation__c)"
               e-ng-required="{{question.isAnswerRequired__c}}"
+              e-ng-options="s.value as s.text for s in statuses"
               ng-if="question.DataType__c=='checkbox'">{{ answers[question.Id] && 'Yes' || 'No' }}</span>
 
     <!-- <Use Radio button or dropdwn for yes/no questions > -->

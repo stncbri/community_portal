@@ -44,10 +44,10 @@
                             ng-class="{'tablerowselected': selectedRows.indexOf($index)  != -1 }"
                             ng-click="setClickedRow($index)">
                             <td>
-                                <div  ng-if="invitaionsMap[supplier.Supplier__c].Status__c == 'Published'">
+                                <div ng-if="invitaionsMap[supplier.Supplier__c].Status__c == 'Published'">
                                     <a ng-click="callsupdetail(supplier.Supplier__r)"> {{supplier.Supplier__r.Name}}</a>
                                 </div>
-                                <div  ng-if="invitaionsMap[supplier.Supplier__c].Status__c != 'Published'">
+                                <div ng-if="invitaionsMap[supplier.Supplier__c].Status__c != 'Published'">
                                     {{supplier.Supplier__r.Name}}
                                 </div>
                             </td>
