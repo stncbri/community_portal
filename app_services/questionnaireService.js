@@ -28,9 +28,11 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
         });
     }
  
-    this.getPublishedAnswerObj = function (supplier, buyerID) {
-        var query = vfr.query("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from PublishedQuestionnaire__c  where supplier__c='" + supplier.Id + "' and buyer__c='" + buyerID + "'");
-        console.log("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from PublishedQuestionnaire__c  where supplier__c='" + supplier.Id + "' and buyer__c='" + buyerID + "'");
+    this.getPublishedAnswerObj = function (supplier, buyerID,inveId) {
+        var query = vfr.query("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from " +
+        		"PublishedQuestionnaire__c  where supplier__c='" + supplier.Id + "' " +
+        				" and buyer__c='" + buyerID + "'  and  Invitation__c='"+inveId+"' ");
+        //console.log("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from PublishedQuestionnaire__c  where supplier__c='" + supplier.Id + "' and buyer__c='" + buyerID + "'");
         return query.then(function (response) {
             return response.records;
         });
