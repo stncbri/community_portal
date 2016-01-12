@@ -1,46 +1,50 @@
 <div class=" padquestions col-sm-6">
-    <div>{{question.QuestionText__c}}</div>
+    <div>{{question.QuestionText__c}}
+        <span ng-if="question.isAnswerRequired__c">*</span>
+    </div>
     <div style="height:10px ;"></div>
 
 	    <span editable-text="answers[question.Id]" e-name="{{question.Name}}"
               onbeforesave="validate($data,question.Validation__c)"
               e-id="{{question.Id}}"
               e-ng-required="{{question.isAnswerRequired__c}}"
-              ng-if="question.DataType__c=='text'">{{ answers[question.Id] || 'empty' }}</span>
+              ng-if="question.DataType__c=='text'">{{ answers[question.Id] || '______' }}</span>
 
     	    <span editable-textarea="answers[question.Id]" e-name="{{question.Name}}"
                   onbeforesave="validate($data,question.Validation__c)"
                   e-id="{{question.Id}}"
                   e-ng-required="{{question.isAnswerRequired__c}}"
-                  ng-if="question.DataType__c=='textarea'">{{ answers[question.Id] || 'empty' }}</span>
+                  ng-if="question.DataType__c=='textarea'">{{ answers[question.Id] || '______' }}</span>
 
-	    <span editable-number="answers[question.Id]" e-name="{{question.Name}}"
-              onbeforesave="validate($data,question.Validation__c)"
-              e-ng-required="{{question.isAnswerRequired__c}}"
-              ng-if="question.DataType__c=='number'">{{ answers[question.Id] || 'empty' }}</span>
+
+    <span editable-number="answers[question.Id]" e-name="{{question.Name}}"
+          onbeforesave="validate($data,question.Validation__c)"
+          e-ng-required="{{question.isAnswerRequired__c}}"
+          ng-if="question.DataType__c=='number'">{{ answers[question.Id] || '______' }}</span>
+
 
 	    <span editable-date="answers[question.Id]" e-name="{{question.Name}}"
               onbeforesave="validate($data,question.Validation__c)"
               e-ng-required="{{question.isAnswerRequired__c}}"
-              ng-if="question.DataType__c=='date'">{{ answers[question.Id] | date:"dd-MMMM-yyyy" || 'empty' }}</span>
+              ng-if="question.DataType__c=='date'">{{ answers[question.Id] | date:"dd-MMMM-yyyy" || '______' }}</span>
 
 	    <span editable-url="answers[question.Id]" e-name="{{question.Name}}"
               onbeforesave="validate($data,question.Validation__c)"
               e-ng-required="{{question.isAnswerRequired__c}}"
-              ng-if="question.DataType__c=='url'">{{ answers[question.Id] || 'empty' }}</span>
+              ng-if="question.DataType__c=='url'">{{ answers[question.Id] || '______' }}</span>
 
 
 	    <span editable-email="answers[question.Id]" e-name="{{question.Name}}"
               onbeforesave="validate($data,question.Validation__c)"
               e-ng-required="{{question.isAnswerRequired__c}}"
-              ng-if="question.DataType__c=='email'">{{ answers[question.Id] || 'empty' }}</span>
+              ng-if="question.DataType__c=='email'">{{ answers[question.Id] || '______' }}</span>
 
 
 	    <span editable-select="answers[question.Id]"
               onbeforesave="validate($data,question.Validation__c)"
               e-ng-required="{{question.isAnswerRequired__c}}"
               e-ng-options="s.value as s.text for s in statuses"
-              ng-if="question.DataType__c=='checkbox'">{{ answers[question.Id] && 'Yes' || 'No' }}</span>
+              ng-if="question.DataType__c=='checkbox'">{{ showYesNoOptions() }}</span>
 
     <!-- <Use Radio button or dropdwn for yes/no questions > -->
 

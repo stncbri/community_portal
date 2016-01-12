@@ -353,7 +353,7 @@ angular.module('ngForce', [], function ($provide) {
             });
             return deferred.promise();
         };
-
+ 
         /*
          * Upsert - creates or updates record of the given type, based on the
          * given external Id.
@@ -374,7 +374,7 @@ angular.module('ngForce', [], function ($provide) {
                 escape: false
             });
             return deferred.promise();
-        };
+        }; 
 
 
         vfRemote.bulkUpsert = function (objtype, externalIdField, externalId, fields, callback, error) {

@@ -1,6 +1,21 @@
-.tablerowselected {
+.invitewell
+{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #552086;
+}
+.boldlabel{
+	font-weight: 500;
+	color: #27346F;
+}
+.invitebutton{
+	margin-top: 15px;
+}
+
+.tablerowselected { 
     background-color: #E2E2E2;
-    font-weight: 400;
+    font-weight: 400; 
 }
 
 .sidebar-nav {
@@ -135,7 +150,7 @@
 .nav-tabs {
     margin-bottom: 0;
 }
-
+ 
 .padquestions {
     padding: 10px;
 }
@@ -145,11 +160,11 @@ span.editable {
 }
 
 .placepannelbutton {
-    float: right;
+    float: right; 
     bottom: 7px;
     position: relative;
 }
-
+ 
 body {
     font-weight: 300;
 }
@@ -179,4 +194,4 @@ form[name="editableForm"].editable {
 
 form[name="editableForm"] select {
     width: 120px;
-}
+} 

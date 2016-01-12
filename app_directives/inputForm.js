@@ -5,10 +5,6 @@ app.directive("inputForm", function (ngForceConfig) {
             answers: '=',
             question: '='
         }, link: function (scope, elem, attr) {
-            //if (scope.question.DataType__c == 'date' && angular.isDefined(scope.model)) {
-            //    scope.model = new Date(scope.model);
-            //}
-
 
         }, controller: 'FieldsCtrl'
     }
@@ -22,42 +18,63 @@ app.directive("showEditControl", function (ngForceConfig) {
         require: "^form",
         link: function (scope, element, attrs, form) {
             scope.form = form;
-            scope.searchButtonText = "Update"
-
         },
         controller: 'FormsValidationCtrl'
 
     }
 })
 
-app.controller("FieldsCtrl", ['$scope', function ($scope) {
+app.controller("FieldsCtrl", ['$scope', '$filter', function ($scope, $filter) {
 
     $scope.statuses = [
-        {value: true, text: 'Yes'},
-        {value: false, text: 'No'},
+        {value: 'true', text: 'Yes'},
+        {value: 'false', text: 'No'},
     ];
+
+    $scope.showYesNoOptions = function () {
+        var selected = $filter('filter')($scope.statuses, {value: $scope.answers[$scope.question.Id]});
+        return ($scope.answers[$scope.question.Id] && selected.length) ? selected[0].text : '___';
+    };
 
     $scope.validate = function (data, validationClass) {
         //return true;
-        if (validationClass == 'DUNS' && data.toString().length < 9) {
+        if (validationClass == 'DUNS' && (data && data.toString().length < 9)) {
             return "DUNS number cannot be less than 9 digits"
         }
+        if (validationClass == 'FUTURE' && (data && angular.isDate(data)) && data < new Date()) {
+            return "Date cannot be in the Past"
+        }
+        if (validationClass == 'NOTFUTURE' && (data && angular.isDate(data)) && data > new Date()) {
+            return "Date should not be in future"
+        }
+        if (validationClass == 'PERCENT' && (isNaN(data) || data < 0 || data > 100)) {
+            return "Not a Valid Percentage"
+        }
+        if (validationClass == 'YEAR') {
+            var dataString = data.toString();
+            var dataReg = "^(18|19|20)\d{2}$";
+            if (dataString.match(dataReg)) {
+                return "Not a Valid Year";
+            }
+        }if ((validationClass == 'SIC' || validationClass == 'NAICS') && !(angular.isNumber(data) && data.toString().length > 2 && data.toString().length < 8)) {
+            return "Not a Valid SIC/NAICS Code"
+        }
+
 
     }
 
 }]);
 
 app.controller("FormsValidationCtrl", ['$scope', function ($scope) {
-    $scope.searchButtonText = "Update";
+    $scope.searchButtonText = "Edit";
     $scope.$watch('model', function (newValue, oldValue) {
         //console.log('scope reached child : '+$scope.model);
     });
-    $scope.upDateAnswer = function () {
-        $scope.searchButtonText = "Updating";
-        $rootScope.$broadcast("UpdateAnswers", []);
-    }
+    $scope.$on('UpdateAnswers', function (args) {
+        $scope.searchButtonText = "Updating...";
+    });
     $scope.$on('AnswersUpdated', function (args) {
-        $scope.searchButtonText = "Update";
+        $scope.searchButtonText = "Edit";
         $scope.$apply();
     });
 

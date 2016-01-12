@@ -1,5 +1,5 @@
 app.service('buyerService', ['vfr', function (vfr) {
-
+ 
 
     this.getSuppliers = function (buyerId) {
         var communityQuery = vfr.query("SELECT Supplier__c ,Supplier__r.Name, Supplier__r.Id, Supplier__r.PrimaryContact__c, " +
@@ -84,7 +84,7 @@ app.service('buyerService', ['vfr', function (vfr) {
             var communityUsrLvlQuery = vfr.query("SELECT RegisteredLevel__c FROM User__c where Id IN (" + uc + ")");
             return communityUsrLvlQuery.then(function (response) {
                 var userResponse = response.records;
-                return userResponse;
+                return userResponse; 
             });
 
         });

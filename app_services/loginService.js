@@ -1,6 +1,5 @@
 app.service('identityService', ['vfr', function (vfr) {
-
-
+ 
 	this.findUser = function (uid,ps) {
         var userlookupQuery = vfr.query("select  Name, password__c, Email__c,  Id , " +
         		"CommunityAccount__r.Id,CommunityAccount__r.Level__c, CommunityAccount__r.AccountInfo__c, " +
@@ -14,19 +13,19 @@ app.service('identityService', ['vfr', function (vfr) {
             return response.records;
         });
 
-    }
+    } 
 
 	///////////////////////////////////////
-
-
+ 
 //  this.findUser = function (uid) {
 //  var userlookupQuery = vfr.query("select Name, password__c,Profile__c,RegisteredLevel__c from user__c where name='" + uid + "'");
 //  return userlookupQuery.then(function (response) {
 //      return response.records;
 //  });
 //
-//}
-
+//} 
+	
+	
     /*Fetch the Supplier Community*/
     /*[{"attributes":{"type":"Community__c","url":"/services/data/v35.0/sobjects/Community__c/a012800000FVRbxAAH"},"Name":"Walmart-Supplier-2","Id":"a012800000FVRbxAAH","Industry__c":"Furniture","DUNS__c":13608064,"CommunityUser__c":"a0C2800000201AoEAI"}]*/
     this.fetchSupplierCommunity = function (user) {
