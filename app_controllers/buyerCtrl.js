@@ -102,16 +102,14 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
         $scope.showBuyerSupplier = true;
         $scope.showBuyerSupplierdetail = false;
         $scope.callsupdetail = function (selectedSupplier) {
-        				// Supplier details page display condition
-            console.log(selectedSupplier);
             $scope.showBuyerSupplier = !$scope.showBuyerSupplier;
             $scope.showBuyerSupplierdetail = !$scope.showBuyerSupplierdetail;
-            $scope.supplierName = selectedSupplier.Name;
-            $scope.supplierDUNS = selectedSupplier.DUNS__c;
-            // Get the selected supplier id..
+            if(selectedSupplier){
+	            $scope.supplierName = selectedSupplier.Name;
+	            $scope.supplierDUNS = selectedSupplier.DUNS__c;
+            }
             delete $scope.questionnaire; 
             $scope.supplier= selectedSupplier;
-            $scope.$apply();
         };
 
 

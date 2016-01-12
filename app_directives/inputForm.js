@@ -42,7 +42,7 @@ app.controller("FieldsCtrl", ['$scope','$filter' ,function ($scope,$filter) {
 
     $scope.validate = function (data, validationClass) {
         //return true;
-        if (validationClass == 'DUNS' && data.toString().length < 9) {
+        if (validationClass == 'DUNS' && (data && data.toString().length < 9)) {
             return "DUNS number cannot be less than 9 digits"
         }
 

@@ -82,12 +82,32 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
         return vfr.bulkUpdate("CommunityAccount__c", angular.toJson(tmpArray));
     }
 
-    this.getSelectors = function () {
-        var query = vfr.query("select Id, param1__c, param2__c,param3__c from selector__c");
+    
+    
+//    this.getSelectors = function () {
+//        var query = vfr.query("select Id, param1__c, param2__c,param3__c from selector__c");
+//        return query.then(function (response) {
+//            return response.records;
+//        });
+//    } 
+    // TODO  this is way simpler just match the exact values no expresopn required. see implementation bellow
+    
+    
+    this.getSelectorFor = function (sup) {
+    	var par1=sup.Industry__c;
+    	var par2=sup.Adddress__c;
+    	var par3=sup.Size__c;
+        var query = vfr.query("select Id, param1__c, param2__c,param3__c from selector__c where  (Param1__c='"+par1+"' or Param1__c=null) and " +
+        		"(Param2__c='"+par2+"' or Param2__c=null) and (Param3__c='"+par3+"' or Param3__c=null)");
         return query.then(function (response) {
-            return response.records;
+        	if(response.records.length>0)
+        		return response.records[0];//TODO should only match one selector
+        	else
+        		return null;
         });
     }
+    
+    
 
     this.publish = function (supplier, buyerId, answerModel,invitationId) {
         var answerObj = [];

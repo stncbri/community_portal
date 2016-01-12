@@ -82,7 +82,7 @@
 										ng-click="updateInvitationStatus(invitation.Id,'Accepted')">Accept</button>
 									<button ng-if="invitation.Status__c == 'Accepted'" type="submit"
 										class="btn btn-primary col-sm-2" style="width: 80%" ng-disabled="inviteButtonDisabled"
-										ng-click="publishTo(invitation.Campaign__r.Buyer__r.Id,invitation.Id)">Publish</button>
+										ng-click="publishTo(invitation.Campaign__r.Buyer__r.Id,invitation.Id)">{{publishButtonText}}</button>
 									<div ng-if="invitation.Status__c == 'Published'" type="submit"
 										class="col-sm-2" style="width: 80%" >
 										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>

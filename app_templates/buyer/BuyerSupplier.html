@@ -71,7 +71,7 @@
 
 
 	<!-- Supplier and questionnaire details page  - Start-->
-	<div ng-if="showBuyerSupplierdetail">
+	<div ng-if="showBuyerSupplierdetail" style="margin: 10px;padding-top: 10px;">
 		<a ng-click="callsupdetail()">Suppliers</a> / {{supplierName}}
 
 		<div class="container-fluid questiontabsmain"
@@ -79,30 +79,30 @@
 
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">
-						<b>DUNS Number </b>
+					<h3 class="panel-title boldlabel">
+						<span>DUNS Number </span>
 					</h3>
 				</div>
 
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-sm-2">
-							<h3 class="panel-title">DUNS Number</h3>
+							<span class="">DUNS Number</span>
+						</div>
+						<div class="col-sm-4">
+							<span class="boldlabel">{{supplierDUNS}}</span>
 						</div>
 						<div class="col-sm-2">
-							<h3 class="panel-title">{{supplierDUNS}}</h3>
+							<span class="">Supplier</span>
 						</div>
-						<div class="col-sm-2">
-							<h3 class="panel-title">Supplier</h3>
-						</div>
-						<div class="col-sm-2">
-							<h3 class="panel-title">{{supplierName}}</h3>
+						<div class="col-sm-4">
+							<span class="boldlabel">{{supplierName}}</span>
 						</div>
 
 					</div>
 				</div>
 			</div>
-			<div ng-controller="questionsCtrl" >
+			<div ng-controller="questionsCtrl" ng-init="showEditControl=false">
 				<div class="supplierloading" ng-show="!questionnaire">
 					<span>Loading...</span>
 				</div>

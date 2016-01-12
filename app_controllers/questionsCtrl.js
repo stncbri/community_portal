@@ -8,7 +8,7 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
         $scope.selectorID = null;
         $scope.answers = {};
         $scope.searchButtonText = "Update";
-        $scope.publishButtonText = "Authorize and Publish";
+        $scope.publishButtonText = "Publish";
         $scope.showDashBoard = true;
         $scope.showEditControl = true;
         $scope.upgradeText = "Register as a Level 2 Supplier"
@@ -61,14 +61,9 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
 
 
         $scope.getQuestionnaire = function () {
-            questionnaireService.getSelectors().then(function (resp) {
-                if (angular.isDefined(resp)) {
-                    for (var item in resp) {
-                        var outCome = $scope.$eval(resp[item].Param1__c) && $scope.$eval(resp[item].Param2__c) && $scope.$eval(resp[item].Param3__c);
-                        if (outCome) {
-                            $scope.selectorID = resp[item].Id;
-                        }
-                    }
+            questionnaireService.getSelectorFor( $scope.supplier ).then(function (resp) {
+                if (resp) {  
+                	$scope.selectorID = resp.Id; 
                 }
 
                 questionnaireService.getQuestionnaire($scope.user, $scope.selectorID).then(function (d) {
@@ -98,12 +93,24 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
         }
 
         $scope.publishTo = function (buyerId, invitationId) {
+            $scope.publishButtonText = "Validating...";
+            $scope.inviteButtonDisabled=true;
+            $scope.validateComplete();
+            for (var i = 0; i < $scope.questionnaire.length; i++) {
+                var l1=$scope.questionnaire[i];
+                if(l1.complete && l1.complete=='false'){
+                	alert('Please complete all Mandatory fields');
+                	$scope.publishButtonText = "Publish";
+                	$scope.inviteButtonDisabled=false;
+                	return;
+                }
+            }
             $scope.publishButtonText = "Updating...";
             questionnaireService.publish($scope.supplier, buyerId, $scope.answers, invitationId).then(function (resp) {
                     if (angular.isDefined(resp)) {
-                        $scope.publishButtonText = "Authorize and Publish";
                         $scope.updateInvitationStatus(invitationId, "Published")
                     }
+                    $scope.publishButtonText = "Publish";
                 }
             );
         }
