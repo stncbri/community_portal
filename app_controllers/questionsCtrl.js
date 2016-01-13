@@ -17,24 +17,36 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
         $scope.country = 'USA' // Need to add a country field..
 
 
-        $scope.$watch('buyerId', function (value) {
-            if (value != null) {
-                $scope.buyerId = value;
-                $scope.showDashBoard = false;
+//        $scope.$watch('buyerId', function (value) {
+//            if (value != null) {
+//                $scope.buyerId = value;
+//                $scope.showDashBoard = false;
+//                $scope.showEditControl = false;
+//            }
+//        });
+        
+        $scope.initInBuyerApp = function () {
+        	if($scope.$parent && $scope.$parent.selectedSupplier){
+        		$scope.buyerId=$scope.buyer.Id;
+        		$scope.buyerInvite=$scope.$parent.selectedInvite;
+        		$scope.buyerView=true;
+        		$scope.showDashBoard = false;
                 $scope.showEditControl = false;
-            }
-        });
+        		$scope.supplier=$scope.$parent.selectedSupplier;
+        	}
+        };
          
         $scope.$watch('supplier', function (value) {
             $scope.supplier = value;
             if (angular.isDefined($scope.supplier)) { 
-                if (angular.isDefined($scope.buyerId)) {
-                    questionnaireService.getPublishedAnswerObj($scope.supplier, $scope.buyerId).then(function (resp) {
+                if ($scope.buyerView) {
+                    questionnaireService.getPublishedAnswerObj($scope.supplier, $scope.buyerId, $scope.buyerInvite.Id).then(function (resp) {
                         if (angular.isDefined(resp) && resp.length > 0) {
                             for (var item in resp) {
                                 $scope.answers[resp[item].Question__c] = resp[item].ResponseText__c;
                             }
                         }
+                        $scope.getQuestionnaire();
                     });
                 } else {
                     questionnaireService.getAnswerObj($scope.supplier).then(function (resp) {
@@ -66,7 +78,7 @@ app.controller('questionsCtrl', ['$scope', 'vfr', 'ngForceConfig', 'questionnair
                 	$scope.selectorID = resp.Id; 
                 }
 
-                questionnaireService.getQuestionnaire($scope.supplier, $scope.selectorID).then(function (d) {
+                questionnaireService.getQuestionnaire($scope.user, $scope.selectorID).then(function (d) {
                     $scope.questions = d;
                     $scope.questionnaire = $scope.makeQuestionTree();
                     $scope.validateComplete();

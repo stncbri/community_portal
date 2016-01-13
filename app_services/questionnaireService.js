@@ -1,7 +1,7 @@
 app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, sharedObject) {
+    this.getQuestionnaire = function (user, selectorID) {
 
-    this.getQuestionnaire = function (supplier, selectorID) {
-        var level = supplier.Level__c;
+        var level = user.CommunityAccount__r.Level__c;
 
         var selectCriteria = '';
         if (level == '1') {
@@ -14,6 +14,7 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
             }
         }
         var questionnaireQuery = vfr.query("Select Id,  Name, DataType__c, isAnswerRequired__c, isPrefilledbyDNB__c, QuestionText__c, Selector__c, QuestionType__c, Parent__c, DisplayLevel__c, DisplayOrder__c, RegisteredLevel__c,Validation__c FROM Question__c" + selectCriteria);
+        console.log("Select Id,  Name, DataType__c, isAnswerRequired__c, isPrefilledbyDNB__c, QuestionText__c, Selector__c, QuestionType__c, Parent__c, DisplayLevel__c, DisplayOrder__c, RegisteredLevel__c,Validation__c FROM Question__c" + selectCriteria);
         return questionnaireQuery.then(function (response) {
             return response.records;
         });
@@ -27,9 +28,11 @@ app.service('questionnaireService', ['vfr', 'sharedObject', function (vfr, share
         });
     }
  
-    this.getPublishedAnswerObj = function (supplier, buyerID) {
-        var query = vfr.query("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from PublishedQuestionnaire__c  where supplier__c='" + supplier.Id + "' and buyer__c='" + buyerID + "'");
-        console.log("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from PublishedQuestionnaire__c  where supplier__c='" + supplier.Id + "' and buyer__c='" + buyerID + "'");
+    this.getPublishedAnswerObj = function (supplier, buyerID,inveId) {
+        var query = vfr.query("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from " +
+        		"PublishedQuestionnaire__c  where supplier__c='" + supplier.Id + "' " +
+        				" and buyer__c='" + buyerID + "'  and  Invitation__c='"+inveId+"' ");
+        //console.log("Select Buyer__c,Question__c,ResponseID__c,ResponseText__c,Status__c,Supplier__c from PublishedQuestionnaire__c  where supplier__c='" + supplier.Id + "' and buyer__c='" + buyerID + "'");
         return query.then(function (response) {
             return response.records;
         });

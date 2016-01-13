@@ -15,7 +15,8 @@ app.service('buyerService', ['vfr', function (vfr) {
     this.getInvitations = function (buyerId) {
         var invitaionQuery = vfr.query("select Campaign__r.Name , Campaign__r.Status__c ," +
             "CreatedDate, Id, LastModifiedDate, Name, Notes__c, Status__c, " +
-            " Supplier__c , Supplier__r.CommunityAccount__c from Invitation__c   where Campaign__r.Buyer__r.id='" + buyerId + "'");
+            " Supplier__c , Supplier__r.CommunityAccount__c from Invitation__c   where Status__c !='Closed' " +
+            " and Campaign__r.Buyer__r.id='" + buyerId + "'");
         return invitaionQuery.then(function (response) {
             return response.records;
         });

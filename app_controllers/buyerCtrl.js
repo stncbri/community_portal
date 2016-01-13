@@ -76,7 +76,7 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
                 var invite = {};
                 if ($scope.selectedRows.indexOf(i) != -1) {
                     var sup = $scope.suppliers[i];
-                    if (!$scope.invitaionsMap[sup.Supplier__c]) {
+                    if (!$scope.invitaionsMap[sup.Supplier__c]) { //TODO sedn invite if published and change invite status to closed
                         createNewCampain = true; //createNewCampain if atleast one supplier not yet invited
                         invite.Supplier__c = sup.Supplier__c;
                         invite.Contact__c = sup.Supplier__r.PrimaryContact__c;
@@ -107,9 +107,11 @@ app.controller('buyerCtrl', ['$scope', 'vfr', 'buyerService', 'identityService',
             if(selectedSupplier){
 	            $scope.supplierName = selectedSupplier.Name;
 	            $scope.supplierDUNS = selectedSupplier.DUNS__c;
+	            $scope.selectedInvite= $scope.invitaionsMap[selectedSupplier.Id];
             }
             delete $scope.questionnaire; 
-            $scope.supplier= selectedSupplier;
+            $scope.selectedSupplier= selectedSupplier;
+            
         };
 
 
